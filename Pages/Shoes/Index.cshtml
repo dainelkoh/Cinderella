@@ -1,0 +1,57 @@
+﻿@page "{searchString?}"
+@model Cinderella.Pages.Shoes.IndexModel
+
+@{
+    ViewData["Title"] = "Shoes";
+}
+
+<h1>Shoes</h1>
+<br />
+
+<form>
+    <p>
+        <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Search" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Shoe[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shoe[0].Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shoe[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shoe[0].Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Shoe) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <a asp-page="./Details" asp-route-id="@item.ShoeID">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

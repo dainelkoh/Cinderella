@@ -1,0 +1,24 @@
+﻿@page
+@model Cinderella.Pages.StaffModel
+@{
+    ViewData["Title"] = "Staff";
+}
+
+<h1>Website Management</h1>
+<br />
+
+<table class="table">
+        <tr>
+            <th>Shoes</th>
+            <td><a asp-page="/Shoes/Manage">Manage</a></td>
+        </tr>         
+        <tr>
+            <th>Role Listings</th>
+            <td><a asp-page="/Roles/Index">Manage</a></td>
+        </tr>
+        <tr>
+            <th>Audit Log</th>
+            <td><a asp-page="/Audit/Index">View</a></td>
+        </tr>
+        <tr></tr>
+</table>

@@ -1,0 +1,54 @@
+﻿@page
+@model Cinderella.Pages.Shoes.IndexModel
+
+@{
+    ViewData["Title"] = "Manage Shoes";
+}
+
+<h1>Manage Shoes</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Shoe[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shoe[0].Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shoe[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shoe[0].Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Shoe) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ShoeID">Edit</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ShoeID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
