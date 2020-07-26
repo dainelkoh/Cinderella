@@ -13,17 +13,21 @@ using Microsoft.EntityFrameworkCore;
 using Cinderella.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Stripe;
+using Cinderella.Data;
 
 namespace Cinderella
 {
      public class Startup
      {
+
           public Startup(IConfiguration configuration)
           {
                Configuration = configuration;
           }
 
           public IConfiguration Configuration { get; }
+
 
           // This method gets called by the runtime. Use this method to add services to the container.
           public void ConfigureServices(IServiceCollection services)
@@ -77,11 +81,13 @@ namespace Cinderella
                     options.ExpireTimeSpan = TimeSpan.FromSeconds(500);
                     options.SlidingExpiration = true;
                });
+               services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
           }
 
           // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
           public void Configure(IApplicationBuilder app, IHostingEnvironment env)
           {
+               StripeConfiguration.SetApiKey(Configuration.GetSection("Stripe")["SecretKey"]);
                if (env.IsDevelopment())
                {
                     app.UseDeveloperExceptionPage();
@@ -92,6 +98,7 @@ namespace Cinderella
                     app.UseExceptionHandler("/Error");
                }
 
+               
                app.UseHttpsRedirection();
                app.UseStaticFiles();
                app.UseAuthentication();

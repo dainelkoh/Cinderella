@@ -81,7 +81,7 @@ namespace Cinderella.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*_-+";
-                int length = 10;
+                int length = 20;
                 string s = "";
                 using (RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider())
                 {

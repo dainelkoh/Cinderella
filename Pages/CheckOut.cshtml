@@ -1,0 +1,114 @@
+﻿@page
+@using Microsoft.Extensions.Options
+@inject IOptions<Cinderella.Data.StripeSettings> Stripe
+@*@model Cinderella.Pages.CheckOutModel*@
+@model Cinderella.Models.PayModelView
+@{
+    ViewData["Title"] = "CheckOut";
+}
+
+<script src="https://kit.fontawesome.com/56529bdc2f.js" crossorigin="anonymous"></script>
+
+<div class="text-center">
+    <i class="fab fa-cc-stripe fa-2x"></i> <i class="fab fa-cc-visa fa-2x"></i> <i class="fab fa-cc-mastercard fa-2x"></i> <i class="fab fa-cc-amex fa-2x"></i>
+    @*<script src="https://js.stripe.com/v3/ "></script>
+    <form asp-action="Charge" asp-controller="Pages" method="post" id="payment-form">
+        <label for="card-number">Credit Card Number</label>
+        <div class="input-group mb-2">
+            <span id="card-number" class="form-control">
+
+            </span>
+        </div>
+        <label for="card-cvc">CVC Number</label>
+        <div class="input-group mb-2">
+            <span id="card-cvc" class="form-control">
+
+            </span>
+        </div>
+        <label for="card-exp">Expiration</label>
+        <div class="input-group mb-2">
+            <span id="card-exp" class="form-control">
+
+            </span>
+        </div>
+        <input class="StripeToken" asp-for="Token" type="text" />
+        <input asp-for="Total" />
+        <input asp-for="emailaddr" type="email" />
+        <div id="card-errors" role="alert" class="text-danger"></div>
+        <button type="submit" class="btn btn-danger">Pay</button>
+    </form>*@
+
+    <form asp-action="Charge" asp-controller="Pages" method="post">
+        <article>
+            <label>Amount: 5.00</label>
+        </article>
+        <script src="//checkout.stripe.com/v2/checkout.js"
+            class="stripe-button"
+            data-key=@Stripe.Value.PublishableKey
+            data-locale="auto"
+            data-description="Sample Charge"
+            data-amount="500">
+        </script>
+    </form>
+</div>
+
+
+@*<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        var stripe = Stripe('pk_test_51H94fhCxH34RknCH7YNy8LbPlX8tkGaBSai3MykG4ytc1dG0b5xR4rzRjzTU0AzxA0IZSH8IL2x0gdm1Ho5Ro3Ku00Wp2PNvIM');
+
+        var elements = stripe.elements();
+
+        var style = {
+            base: {
+                'lineHeight': '1.35',
+                'fontSize': '1.11rem',
+                'color': '#495057',
+                'fontFamily': 'apple-system,BlinkMacSystemFont'
+
+            }
+        };
+        var card = elements.create('cardNumber', {
+            'placeholder': '',
+            'style': style
+        });
+
+        card.mount('#card-number');
+
+        var cvc = elements.create('cardCvc', {
+            'placeholder': '',
+            'style': style
+        })
+        card.mount('#card-cvc');
+
+        var exp = elements.create('cardExpiry', {
+            'placeholder': '',
+            'style': style
+        })
+        card.mount('#card-exp');
+
+        var form = document.getElementById('payment-form');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            stripe.createToken(card).then(function (result) {
+                if (result.error) {
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                } else {
+                    stripeTokenHandler(result.token);
+                    console.log(result.token)
+                }
+            })
+        });
+
+        function stripeTokenHandler(token) {
+            $(".StripeToken").val(token.id);
+            form.submit();
+        }
+
+        card.unmount();
+
+    });
+</script>*@
+
