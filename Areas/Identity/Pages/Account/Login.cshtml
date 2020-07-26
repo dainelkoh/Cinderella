@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = "Log in";
 }
-
+<script src='https://www.google.com/recaptcha/api.js'></script>
 <h1>@ViewData["Title"]</h1>
 <div class="row">
     <div class="col-md-4">
@@ -31,9 +31,24 @@
                         </label>
                     </div>
                 </div>
+
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Log in</button>
+                    @*<span asp-validation-for="Input.recaptcha" class="text-danger"></span>*@
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                    {
+                        @*@Html.TextBox("name")<br /><br />*@
+                        <div class="g-recaptcha"
+                             data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div><br />
+
+                        <input type="submit" value="Submit" class="btn btn-primary" />
+                        @*<input type="submit" value="Submit" class="btn btn-primary" />*@
+                        <strong>@Html.ValidationSummary()</strong>
+                    }
                 </div>
+
+                @*<div class="form-group">
+                    <button type="submit" class="btn btn-primary">Log in</button>
+                </div>*@
                 <div class="form-group">
                     <p>
                         <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>

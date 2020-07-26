@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System.Net.Mail;
+using System.Security.Cryptography;
 
 namespace Cinderella.Areas.Identity.Pages.Account
 {
@@ -33,6 +35,7 @@ namespace Cinderella.Areas.Identity.Pages.Account
             _emailSender = emailSender;
         }
 
+
         [BindProperty]
         public InputModel Input { get; set; }
 
@@ -45,19 +48,25 @@ namespace Cinderella.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
+            //[Required]
+            //[StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            //[DataType(DataType.Password)]
+            //[Display(Name = "Password")]
+            //public string Password { get; set; }
+
+            //[DataType(DataType.Password)]
+            //[Display(Name = "Confirm password")]
+            //[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            //public string ConfirmPassword { get; set; }
+
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [DataType(DataType.Password)]
-            [Display(Name = "Password")]
-            public string Password { get; set; }
-
-            [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-            public string ConfirmPassword { get; set; }
-
             [Display(Name = "Full Name")]
             public string FullName { get; set; }
+
+            //[Required]
+            //[Display(Name = "recaptcha")]
+            //public bool recaptcha { get; set; }
+
         }
 
         public void OnGet(string returnUrl = null)
@@ -67,32 +76,68 @@ namespace Cinderella.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
+                const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*_-+";
+                int length = 10;
+                string s = "";
+                using (RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider())
+                {
+                    while (s.Length != length)
+                    {
+                        byte[] oneByte = new byte[1];
+                        provider.GetBytes(oneByte);
+                        char character = (char)oneByte[0];
+                        if (valid.Contains(character))
+                        {
+                            s += character;
+                        }
+                    }
+                }
+
                 var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FullName = Input.FullName };
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                var result = await _userManager.CreateAsync(user, s);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    string subject = "Cinderella Shoes Confirmation";
+                    string To = Input.Email;
+                    string Body = "Your password is:   " + s + "   Please login to your account using the password given to you and change the password upon login to your account";
+                    MailMessage mail = new MailMessage();
+                    mail.To.Add(To);
+                    mail.Subject = subject;
+                    mail.Body = Body;
+                    mail.IsBodyHtml = false;
+                    mail.From = new MailAddress("cinderella.shoesg@gmail.com");
+                    SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+                    smtp.Port = 587;
+                    smtp.UseDefaultCredentials = true;
+                    smtp.EnableSsl = true;             //use SSL to secure connection
+                    smtp.Credentials = new System.Net.NetworkCredential("cinderella.shoesg@gmail.com", "Cinderella123!");
+                    await smtp.SendMailAsync(mail);
+                    return RedirectToPage("./ConfirmationPage");
 
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { userId = user.Id, code = code },
-                        protocol: Request.Scheme);
+                    //_logger.LogInformation("User created a new account with password.");
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //var callbackUrl = Url.Page(
+                    //    "/Account/ConfirmEmail",
+                    //    pageHandler: null,
+                    //    values: new { userId = user.Id, code = code },
+                    //    protocol: Request.Scheme);
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
+                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                    //await _signInManager.SignInAsync(user, isPersistent: false);
+                    //return LocalRedirect(returnUrl);
                 }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+                //foreach (var error in result.Errors)
+                //{
+                //    ModelState.AddModelError(string.Empty, error.Description);
+                //}
+                
             }
 
             // If we got this far, something failed, redisplay form
