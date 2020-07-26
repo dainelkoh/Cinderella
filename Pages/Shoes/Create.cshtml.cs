@@ -22,6 +22,7 @@ namespace Cinderella.Pages.Shoes
 
         public IActionResult OnGet()
         {
+            //throw new Exception("Test Error");
             return Page();
         }
 
