@@ -24,7 +24,7 @@ namespace Cinderella.Pages
           public void OnGet()
           {
                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
-
+               //Get details of the exception that occured
                var exception = HttpContext.Features.Get<IExceptionHandlerFeature>();
 
                iStatusCode = HttpContext.Response.StatusCode;

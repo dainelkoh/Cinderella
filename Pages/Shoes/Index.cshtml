@@ -10,7 +10,7 @@
 
 <form>
     <p>
-        <input type="text" asp-for="SearchString" />
+        Shoe Name: <input type="text" asp-for="SearchString" pattern="[a-zA-Z0-9]{5}" title="5 letters from shoe name"/>
         <input type="submit" value="Search" />
     </p>
 </form>
