@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Cinderella.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace Cinderella.Pages.Shoes
 {
@@ -14,10 +17,12 @@ namespace Cinderella.Pages.Shoes
     public class DeleteModel : PageModel
     {
         private readonly Cinderella.Models.CinderellaContext _context;
+        private readonly IHostingEnvironment _iweb;
 
-        public DeleteModel(Cinderella.Models.CinderellaContext context)
+        public DeleteModel(Cinderella.Models.CinderellaContext context, IHostingEnvironment iweb)
         {
             _context = context;
+            _iweb = iweb;
         }
 
         [BindProperty]
@@ -38,7 +43,7 @@ namespace Cinderella.Pages.Shoes
             }
             return Page();
         }
-
+          
         public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id == null)
@@ -62,10 +67,10 @@ namespace Cinderella.Pages.Shoes
                     auditrecord.Username = userID;
                     _context.AuditRecords.Add(auditrecord);
                     await _context.SaveChangesAsync();
-                 }
+                }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Manage");
         }
     }
 }

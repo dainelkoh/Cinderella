@@ -1,5 +1,5 @@
 ﻿@page
-@model Cinderella.Pages.Shoes.IndexModel
+@model Cinderella.Pages.Shoes.ManageModel
 
 @{
     ViewData["Title"] = "Manage Shoes";
@@ -36,7 +36,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Image)
+                <img src="~/images/@item.Image" height="250" alt="@item.Image"/>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
@@ -45,10 +45,12 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.ShoeID">Edit</a> |
+                <a asp-page="./Edit" asp-route-id="@item.ShoeID">Edit</a>
                 <a asp-page="./Delete" asp-route-id="@item.ShoeID">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+<a asp-page="../Staff">Back to Website Management</a>

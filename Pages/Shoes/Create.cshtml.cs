@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Cinderella.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using Cinderella.Areas.Identity.Pages.Account;
 
 namespace Cinderella.Pages.Shoes
 {
@@ -14,10 +18,12 @@ namespace Cinderella.Pages.Shoes
     public class CreateModel : PageModel
     {
         private readonly Cinderella.Models.CinderellaContext _context;
+        private readonly IHostingEnvironment _iweb;
 
-        public CreateModel(Cinderella.Models.CinderellaContext context)
+        public CreateModel(Cinderella.Models.CinderellaContext context, IHostingEnvironment iweb)
         {
             _context = context;
+            _iweb = iweb;
         }
 
         public IActionResult OnGet()
@@ -29,14 +35,26 @@ namespace Cinderella.Pages.Shoes
         [BindProperty]
         public Shoe Shoe { get; set; }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(IFormFile uploadfiles)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
+            if (uploadfiles != null)
+            {
+                string imgext = Path.GetExtension(uploadfiles.FileName);
+                if (imgext == ".jpg" || imgext == ".png")
+                {
+                    var img = Path.Combine(_iweb.WebRootPath, "images", uploadfiles.FileName);
+                    var stream = new FileStream(img, FileMode.Create);
+                    await uploadfiles.CopyToAsync(stream);
+                    stream.Close();
 
-            _context.Shoe.Add(Shoe);
+                    Shoe.Image = uploadfiles.FileName;
+                    _context.Shoe.Add(Shoe);
+                }
+            }
 
             if (await _context.SaveChangesAsync()>0)
             {
@@ -52,7 +70,7 @@ namespace Cinderella.Pages.Shoes
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Manage");
         }
     }
 }

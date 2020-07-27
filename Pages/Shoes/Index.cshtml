@@ -10,7 +10,7 @@
 
 <form>
     <p>
-        Shoe Name: <input type="text" asp-for="SearchString" pattern="[a-zA-Z0-9]{5}" title="5 letters from shoe name"/>
+        Shoe Name: <input type="text" asp-for="SearchString" />
         <input type="submit" value="Search" />
     </p>
 </form>
@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Image)
+                <img src="~/images/@item.Image" height="250" alt="@item.Image"/>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)

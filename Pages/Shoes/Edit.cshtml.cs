@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Cinderella.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using Microsoft.AspNetCore.Identity.UI.V3.Pages.Account.Manage.Internal;
 
 namespace Cinderella.Pages.Shoes
 {
@@ -15,10 +19,12 @@ namespace Cinderella.Pages.Shoes
     public class EditModel : PageModel
     {
         private readonly Cinderella.Models.CinderellaContext _context;
+        private readonly IHostingEnvironment _iweb;
 
-        public EditModel(Cinderella.Models.CinderellaContext context)
+        public EditModel(Cinderella.Models.CinderellaContext context, IHostingEnvironment iweb)
         {
             _context = context;
+            _iweb = iweb;
         }
 
         [BindProperty]
@@ -39,13 +45,27 @@ namespace Cinderella.Pages.Shoes
             }
             return Page();
         }
-
-        public async Task<IActionResult> OnPostAsync()
+     
+        public async Task<IActionResult> OnPostAsync(IFormFile uploadfiles)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
+
+            if (uploadfiles != null)
+            {
+                string imgext = Path.GetExtension(uploadfiles.FileName);
+                if (imgext == ".jpg" || imgext == ".png")
+                {
+                    var img = Path.Combine(_iweb.WebRootPath, "images", uploadfiles.FileName);
+                    var stream = new FileStream(img, FileMode.Create);
+                    await uploadfiles.CopyToAsync(stream);
+                    stream.Close();
+
+                    Shoe.Image = uploadfiles.FileName;
+                }
+            }            
 
             _context.Attach(Shoe).State = EntityState.Modified;
 
@@ -65,7 +85,7 @@ namespace Cinderella.Pages.Shoes
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Manage");
         }
 
         private bool ShoeExists(int id)

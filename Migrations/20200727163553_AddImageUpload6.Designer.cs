@@ -4,14 +4,16 @@ using Cinderella.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Cinderella.Migrations
 {
     [DbContext(typeof(CinderellaContext))]
-    partial class CinderellaContextModelSnapshot : ModelSnapshot
+    [Migration("20200727163553_AddImageUpload6")]
+    partial class AddImageUpload6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -134,6 +136,8 @@ namespace Cinderella.Migrations
                     b.Property<string>("Description");
 
                     b.Property<string>("Image");
+
+                    b.Property<string>("ImageName");
 
                     b.Property<string>("Name")
                         .IsRequired();

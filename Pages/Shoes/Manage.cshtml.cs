@@ -11,11 +11,11 @@ using Microsoft.AspNetCore.Authorization;
 namespace Cinderella.Pages.Shoes
 {
      [Authorize(Roles = "Admin, Staff")]
-     public class Index1Model : PageModel
+     public class ManageModel : PageModel
      {
           private readonly Cinderella.Models.CinderellaContext _context;
 
-          public Index1Model(Cinderella.Models.CinderellaContext context)
+          public ManageModel(Cinderella.Models.CinderellaContext context)
           {
                _context = context;
           }

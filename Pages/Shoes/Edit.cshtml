@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Shoe.ShoeID" />
             <div class="form-group">
@@ -21,7 +21,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="Shoe.Image" class="control-label"></label>
-                <input asp-for="Shoe.Image" class="form-control" />
+                <input asp-for="Shoe.Image" class="form-control" readonly/>
+                <br /><img src="~/images/@Html.DisplayFor(model => model.Shoe.Image)" height="500" alt="@Html.DisplayFor(model => model.Shoe.Image)" />
+                <input type="file" name="uploadfiles"/>
                 <span asp-validation-for="Shoe.Image" class="text-danger"></span>
             </div>
             <div class="form-group">
