@@ -21,6 +21,8 @@ namespace Cinderella.Pages.Shoes
         }
 
         public Shoe Shoe { get; set; }
+        public Review Review { get; set; }
+        public IList<ReviewDesc> ReviewDesc { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,10 +32,28 @@ namespace Cinderella.Pages.Shoes
             }
 
             Shoe = await _context.Shoe.FirstOrDefaultAsync(m => m.ShoeID == id);
-
             if (Shoe == null)
             {
                 return NotFound();
+            }
+
+            Review = await _context.reviews.FirstOrDefaultAsync(m => m.ShoeID == id);
+            if(Review == null)
+            {
+                ReviewDesc NullReview = new ReviewDesc
+                {
+                    ReviewDescID = 0,
+                    ReviewID = 0,
+                    ReviewName = "No Reviews",
+                    ReviewWords = "No Reviews"
+                };
+                ReviewDesc = new List<ReviewDesc> { NullReview };
+            }
+            else
+            {
+                var reviewDesc = from s in _context.reviewDescs
+                                 select s;
+                ReviewDesc = await reviewDesc.ToListAsync();
             }
             return Page();
         }

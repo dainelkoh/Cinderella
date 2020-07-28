@@ -125,6 +125,36 @@ namespace Cinderella.Migrations
                     b.ToTable("AuditRecords");
                 });
 
+            modelBuilder.Entity("Cinderella.Models.Review", b =>
+                {
+                    b.Property<int>("ReviewID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ShoeID");
+
+                    b.HasKey("ReviewID");
+
+                    b.ToTable("reviews");
+                });
+
+            modelBuilder.Entity("Cinderella.Models.ReviewDesc", b =>
+                {
+                    b.Property<int>("ReviewDescID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ReviewID");
+
+                    b.Property<string>("ReviewName");
+
+                    b.Property<string>("ReviewWords");
+
+                    b.HasKey("ReviewDescID");
+
+                    b.ToTable("reviewDescs");
+                });
+
             modelBuilder.Entity("Cinderella.Models.Shoe", b =>
                 {
                     b.Property<int>("ShoeID")

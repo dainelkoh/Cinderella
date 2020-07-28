@@ -5,6 +5,17 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Migrations\20200728141257_AddReview.cs" />
+    <Compile Remove="Migrations\20200728141257_AddReview.Designer.cs" />
+    <Compile Remove="Migrations\20200728141549_test.cs" />
+    <Compile Remove="Migrations\20200728141549_test.Designer.cs" />
+    <Compile Remove="Migrations\20200728141955_AddReview2.cs" />
+    <Compile Remove="Migrations\20200728141955_AddReview2.Designer.cs" />
+    <Compile Remove="Migrations\20200728160459_AddFixforReview.cs" />
+    <Compile Remove="Migrations\20200728160459_AddFixforReview.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="AntiXSS" Version="4.3.0" />
