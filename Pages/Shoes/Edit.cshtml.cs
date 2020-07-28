@@ -53,6 +53,7 @@ namespace Cinderella.Pages.Shoes
                 return Page();
             }
 
+
             if (uploadfiles != null)
             {
                 string imgext = Path.GetExtension(uploadfiles.FileName);
@@ -72,6 +73,18 @@ namespace Cinderella.Pages.Shoes
             try
             {
                 await _context.SaveChangesAsync();
+                
+                    var auditrecord = new AuditRecord();
+                    auditrecord.AuditActionType = "Edit Shoe Record";
+                    auditrecord.DateTimeStamp = DateTime.Now;
+                    auditrecord.KeyShoeFieldID = Shoe.ShoeID;
+
+                    var userID = User.Identity.Name.ToString();
+                    auditrecord.Username = userID;
+
+                    _context.AuditRecords.Add(auditrecord);
+                    await _context.SaveChangesAsync();
+                
             }
             catch (DbUpdateConcurrencyException)
             {
