@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cinderella.Models;
 using Stripe;
-
+using System.Diagnostics;
 
 namespace Cinderella.Controllers
 {
@@ -20,53 +20,50 @@ namespace Cinderella.Controllers
             return View();
         }
 
-        public IActionResult Charge(PayModelView data)
+        public IActionResult Charge(string stripeEmail, string stripeToken)
         {
             var customers = new CustomerService();
             var charges = new ChargeService();
 
             var customer = customers.Create(new CustomerCreateOptions {
-                Email = data.emailaddr,
-                Source = data.Token
+                Email = stripeEmail,
+                Source = stripeToken
              });
 
             var charge = charges.Create(new ChargeCreateOptions {
-                Amount = Convert.ToInt32(data.Total),   //Need to change the amount to shopping cart page
+                Amount = 500,   //Need to change the amount to shopping cart page
                 Description = "Test Payment",
                 Currency = "sgd",
                 Customer = customer.Id,
-                ReceiptEmail = data.emailaddr, // Send email receipt to customer
+                ReceiptEmail = stripeEmail // Send email receipt to customer
             });
 
-            if (charge.Status == "succeeded")
+            if (charge.Id == "")
             {
-                string BalanceTransactionId = charge.BalanceTransactionId;
-                return View();
-                //return RedirectToPage("../Areas/Identity/Pages/Account/ConfirmationPage");
-                //C:\Users\SSDStudent\source\repos\Cinderella4\Areas\Identity\Pages\Account\Success_Page.cshtml
-                //C:\Users\SSDStudent\source\repos\Cinderella4\Controllers\HomeController.cs
+
+                //eturn RedirectToPage("./Index");
+                return RedirectToPage("./Index");
+
                 
             }
             else
             {
-                //return RedirectToPage("../Areas/Identity/Pages/Account/Success_Page");
+                string BalanceTransactionId = charge.BalanceTransactionId;
+                return RedirectToPage("./About Us");
+                //return View("Views/Controllers/Success_Page.cshtml");
                 //return View();
             }
 
-            return View();
+            //return View();
         }
-        //public async Task<IActionResult> OnPostAsync(string returnUrl = null)
-        //{
-        //    var result = await Charge(;
-        //    r
-        //}
 
-        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        //public IActionResult Error()
-        //{
-        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        //}
+    //    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    //    public IActionResult Error()
+    //    {
+    //        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    //    }
     }
+
 }
 //Links (Do Not Delete)
 //https://www.youtube.com/watch?v=Iisp6g88IU4

@@ -87,13 +87,14 @@ namespace Cinderella
           // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
           public void Configure(IApplicationBuilder app, IHostingEnvironment env)
           {
+            StripeConfiguration.ApiKey = "sk_test_51H94fhCxH34RknCHpZXv7m5wZHqGbbfhSL0XGheU36xzg0Ucf7gJKiNTQiHZaKX1akiPepHDCcKW10CL4s6JGj0M00PtUmlX6J";
                //if (env.IsDevelopment())
                //{
                //     app.UseDeveloperExceptionPage();
                //}
                //else
                //{
-               app.UseStatusCodePages("text/html", "<h1>Status code page</h1> <h2>Status Code: {0}</h2>");
+            app.UseStatusCodePages("text/html", "<h1>Status code page</h1> <h2>Status Code: {0}</h2>");
                app.UseExceptionHandler("/Error");
                //}
 
