@@ -38,9 +38,11 @@
     </dl>
 </div>
 <br />
-<dt class="col-sm-2">
-    Reviews
-</dt>
+@if (Model.Reviewable)
+{
+    <a asp-page="./GiveReview" asp-route-id="@Model.Shoe.ShoeID">Give Review</a>
+}
+<br />
 <dd class="col-sm-10">
     <table class="table">
         <tr>
@@ -49,15 +51,15 @@
         </tr>
         @foreach (var reviews in Model.ReviewDesc)
         {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => reviews.ReviewName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => reviews.ReviewWords)
-                    </td>
-                </tr>
-         }
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => reviews.ReviewName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => reviews.ReviewWords)
+                </td>
+            </tr>
+        }
     </table>
 </dd>
 <div>

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Cinderella.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Cinderella.Pages.Shoes
 {
@@ -14,15 +15,17 @@ namespace Cinderella.Pages.Shoes
     public class DetailsModel : PageModel
     {
         private readonly Cinderella.Models.CinderellaContext _context;
-
-        public DetailsModel(Cinderella.Models.CinderellaContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public DetailsModel(Cinderella.Models.CinderellaContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public Shoe Shoe { get; set; }
         public Review Review { get; set; }
         public IList<ReviewDesc> ReviewDesc { get; set; }
+        public bool Reviewable { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -36,6 +39,20 @@ namespace Cinderella.Pages.Shoes
             {
                 return NotFound();
             }
+
+            var user = await _userManager.GetUserAsync(User);
+            Bought QueryBought = new Bought { Id = user.Id, ShoeID = Shoe.ShoeID };
+            var bought = await _context.bought.FirstOrDefaultAsync(m => m == QueryBought);
+
+            if (bought == null)
+            {
+                Reviewable = false;
+            }
+            else
+            {
+                Reviewable = true;
+            }
+
 
             Review = await _context.reviews.FirstOrDefaultAsync(m => m.ShoeID == id);
             if(Review == null)

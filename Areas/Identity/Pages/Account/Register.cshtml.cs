@@ -12,12 +12,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System.Net.Mail;
 using System.Security.Cryptography;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinderella.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
+        private readonly Cinderella.Models.CinderellaContext _context;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
@@ -27,12 +29,15 @@ namespace Cinderella.Areas.Identity.Pages.Account
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            Cinderella.Models.CinderellaContext context
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
 
@@ -40,6 +45,7 @@ namespace Cinderella.Areas.Identity.Pages.Account
         public InputModel Input { get; set; }
 
         public string ReturnUrl { get; set; }
+        public ApplicationUser user1 {get; set;}
 
         public class InputModel
         {
@@ -76,10 +82,18 @@ namespace Cinderella.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            var user1 = await _context.Users.FirstOrDefaultAsync(m => m.Email == Input.Email);
+
+            if (user1 != null)
+            {
+                //Email alr exists
+            }
 
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
+                
+
                 const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*_-+";
                 int length = 20;
                 string s = "";
