@@ -12,15 +12,18 @@
     <i class="fab fa-cc-stripe fa-2x"></i> <i class="fab fa-cc-visa fa-2x"></i> <i class="fab fa-cc-mastercard fa-2x"></i> <i class="fab fa-cc-amex fa-2x"></i>
 
     <form asp-action="Charge" asp-controller="Home"  method="POST">
+        <input type="hidden" value="@Model.ids" name="id"/>
         <article>
-            <label>Amount: 5.00</label>
+            <label>@Model.shoe.Name</label>
+            <br />
+            <label>Amount: $@Model.shoe.Price</label>
         </article>
         <script src="https://checkout.stripe.com/v2/checkout.js"
                 class="stripe-button"
                 data-key=@Stripe.Value.PublishableKey
                 data-locale="auto"
                 data-description="Sample Charge"
-                data-amount="500">
+                data-amount=@(Model.shoe.Price * 100)>
         </script>
     </form>
 </div>

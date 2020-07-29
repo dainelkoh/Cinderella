@@ -125,6 +125,18 @@ namespace Cinderella.Migrations
                     b.ToTable("AuditRecords");
                 });
 
+            modelBuilder.Entity("Cinderella.Models.Bought", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ShoeID");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("bought");
+                });
+
             modelBuilder.Entity("Cinderella.Models.Review", b =>
                 {
                     b.Property<int>("ReviewID")
