@@ -4,7 +4,7 @@
     ViewData["Title"] = "Register";
 }
 <script src='https://www.google.com/recaptcha/api.js'></script>
-
+<link rel="stylesheet" href="~/css/bootstrap.min.css">
 <h1>@ViewData["Title"]</h1>
 
 
@@ -43,7 +43,7 @@
                     <div class="g-recaptcha"
                          data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div><br />
 
-                    <input type="submit" value="Submit" class="btn btn-primary" />
+                    <input type="submit" value="Submit"  class="btn btn-primary" />
                     <strong>@Html.ValidationSummary()</strong>
                 }
             </div>
@@ -56,4 +56,4 @@
     <partial name="_ValidationScriptsPartial" />
 }
 @*Recaptcha Test keys
-https://developers.google.com/recaptcha/docs/faq#id-like-to-run-automated-tests-with-recaptcha.-what-should-i-do*@
+    https://developers.google.com/recaptcha/docs/faq#id-like-to-run-automated-tests-with-recaptcha.-what-should-i-do*@

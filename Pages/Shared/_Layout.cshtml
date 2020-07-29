@@ -18,37 +18,45 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Shoes/Index">Cinderella</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+    <section id="graphic-portion">
+        <header>
+            <nav id="myNavbar" class="navbar navbar-expand-lg navbar-fixed-top" role="navigation">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggler collapse" data-toggle="collapse" data-target="#collapse" aria-expanded="false">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <img src="~/images/Cinderella_Shoes-logos.jpeg" style="width: 100px; padding:10px; margin-left:400px" /><a class="navbar-brand" style="color:#3182CE" ; asp-page="/Index"><b>Cinderella Shoes</b></a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a style="text-decoration:none;" asp-page="/Index"><b>Home</b></a></li>
+                        <li>
+                            <a style="text-decoration:none;" asp-page="/About Us"><b>About Us</b></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/About Us">About Us</a>
+                        <li>
+                            <a style="text-decoration:none;" asp-page="/Shoes/Index"><b>Shoes</b></a>
                         </li>
-                        <li class="nav-item">
-                         <a class="nav-link text-dark" asp-area="" asp-page="/Shoes/Index">Shoes</a>
+                        <li>
+                            <partial name="_LoginPartial" style="text-decoration:none;" />
                         </li>
                     </ul>
                 </div>
-                <partial name="_LoginPartial" />
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <partial name="_CookieConsentPartial" />
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+                
+            </nav>
+
+
+
+        </header>
+        <div class="container">
+            <partial name="_CookieConsentPartial" />
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </section>
+    
 
     <footer class="border-top footer text-muted">
         <div class="container">

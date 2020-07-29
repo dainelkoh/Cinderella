@@ -4,13 +4,59 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to Cinderella</h1>
-    <h4>where you deserve the perfect shoe too!</h4>
-    <br />
-    <h4>
-         <a asp-page="/About Us">About Us</a> |
-         <a asp-page="/Shoes/Index">Shoes</a>
-    </h4>
-</div>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <script src="~/js/site.js"></script>
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <link rel='shortcut icon' type='image/x-icon' href='~/images/Cinderella_Shoes-logos.ico' />
 
+</head>
+
+
+<div class="text-center">
+    <h1 class="display-4" style="margin-top:1em;">Welcome to Cinderella</h1>
+    <div class="wrapper">
+        <div class="typing-demo">
+            You Deserve the Perfect Shoe!
+        </div>
+    </div>
+    <a asp-page="/About Us">About Us</a> |
+    <a asp-page="/Shoes/Index">Shoes</a>
+</div>
+<div class="social">
+    <div class="frame">
+        <a href="#" class="btn-icon">
+            <i class="fab fa-facebook-f" style="color: #3b5998; text-decoration:none;"></i>
+        </a>
+        <a href="#" class="btn-icon">
+            <i class="fab fa-twitter" style="color: #00acee; text-decoration:none;"></i>
+        </a>
+        <a href="https://www.instagram.com/zu.really/" class="btn-icon">
+            <i class="fab fa-instagram" style="color: #833AB4; text-decoration:none;"></i>
+        </a>
+        <a href="#" class="btn-icon">
+            <i class="fab fa-linkedin-in" style="color:#0e76a8; text-decoration:none"></i>
+        </a>
+        <a href="#" class="btn-icon">
+            <i class="far fa-envelope" style="text-decoration:none;"></i>
+        </a>
+    </div>
+</div>
+<div class="images-leaning">
+    <div>
+        <img src="~/images/airforce1black.jpg" alt="Air-Force 1 Black" />
+    </div>
+    <div>
+        <img src="~/images/airforce1white.jpg" alt="Air-Force 1 White" />
+    </div>
+    <div>
+        <img src="~/images/airforce1custom.jpg" alt="Air-Force 1 Custom" />
+    </div>
+    <div>
+        <img src="~/images/Heron-Preston.png" alt="Heron-Preston" />
+    </div>
+</div>
