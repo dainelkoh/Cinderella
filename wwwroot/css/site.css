@@ -33,6 +33,7 @@ html {
     z-index: 3;
     top: 0;
     opacity: 0.8;
+    margin-bottom:2%;
 }
 .navbar-nav {
     margin-left: 50%;
@@ -71,10 +72,10 @@ button.accept-policy {
 
 /* Sticky footer styles
 -------------------------------------------------- */
-/*html {
+html {
   position: relative;
   min-height: 100%;
-}*/
+}
 
 body {
   /* Margin bottom by footer height */
@@ -120,7 +121,7 @@ body {
     border-radius: 10px;
 }
 
-.btn {
+.btn-icon {
     height: 35px;
     width: 35px;
     border-radius: 3px;
@@ -308,7 +309,7 @@ a {
     box-sizing: border-box;
     width: 115%;
     min-width: 800px;
-    margin: 5em auto 2em;
+    margin: 5em auto;
     min-height: 450px;
     position: relative;
     background-repeat: no-repeat;
@@ -423,7 +424,7 @@ body {
     min-width: 800px;
 }
 
-body {
+/*body {
     margin: 0 auto;
     padding: 0;
     display: -webkit-box;
@@ -435,7 +436,7 @@ body {
     justify-content: space-between;
     background-color: #eee;
     font-size: 10px;
-}
+}*/
 
 .images-basic {
     width: 600px;
