@@ -38,10 +38,12 @@
     </dl>
 </div>
 <br />
-@if (Model.Reviewable)
-{
-    <a asp-page="./GiveReview" asp-route-id="@Model.Shoe.ShoeID">Give Review</a>
-}
+<div class="text-center">
+    @if (Model.Reviewable)
+    {
+        <a asp-page="./GiveReview" asp-route-id="@Model.Shoe.ShoeID" class="btn btn-primary" style="margin-bottom:20px;">Give Review</a>
+    }
+</div>
 <br />
 <dd class="col-sm-10">
     <table class="table">
@@ -62,7 +64,7 @@
         }
     </table>
 </dd>
-<div>
-    <a asp-page="../CheckOut" asp-route-id="@Model.Shoe.ShoeID" class="btn btn-primary">Add to Cart</a> |
-    <a asp-page="./Index" class="btn btn-primary">Back to List</a>
+<div class="text-center">
+    <a asp-page="../CheckOut" asp-route-id="@Model.Shoe.ShoeID" class="btn btn-primary" style="padding-right:10px;">Add to Cart</a> |
+    <a asp-page="./Index" class="btn btn-primary" style="padding-left:10px;">Back to List</a>
 </div>
