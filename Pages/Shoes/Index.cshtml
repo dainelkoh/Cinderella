@@ -5,15 +5,21 @@
     ViewData["Title"] = "Shoes";
 }
 
-<h1>Shoes</h1>
-<br />
+<div class="container-1">
+    <div class="text-left">
+        <h1>Shoes</h1>
+    </div>
+    <div class="text-right">
+        <form>
+            <p style="font-size:20px;">
+                <b>Shoe Name: </b><input type="text" asp-for="SearchString" />
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </p>
+        </form>
+    </div>
 
-<form>
-    <p>
-        Shoe Name: <input type="text" asp-for="SearchString" />
-        <input type="submit" value="Search" />
-    </p>
-</form>
+</div>
+
 
 <table class="table">
     <thead>
