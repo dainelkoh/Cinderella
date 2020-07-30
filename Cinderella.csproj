@@ -27,7 +27,7 @@
 
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\images\Resize Image Shoes\" />
   </ItemGroup>
 
 </Project>
