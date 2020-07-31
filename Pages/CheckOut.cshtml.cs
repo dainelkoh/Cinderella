@@ -12,7 +12,6 @@ using Stripe;
 
 namespace Cinderella.Pages
 {
-    [Authorize(Roles = "Customer")]
     public class CheckOutModel : PageModel
     {
         private readonly Cinderella.Models.CinderellaContext _context;
@@ -69,7 +68,7 @@ namespace Cinderella.Pages
             var charge = charges.Create(new ChargeCreateOptions
             {
                 Amount = Convert.ToInt64(shoe.Price)*100,   //Need to change the amount to shopping cart page
-                Description = "Test Payment",
+                Description = shoe.Name,
                 Currency = "sgd",
                 Customer = customer.Id,
                 ReceiptEmail = stripeEmail // Send email receipt to customer
