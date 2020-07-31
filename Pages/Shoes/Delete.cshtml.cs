@@ -13,7 +13,7 @@ using System.IO;
 
 namespace Cinderella.Pages.Shoes
 {
-    [Authorize(Roles = "Admin, Staff")]
+    [Authorize(Roles = "Staff")]
     public class DeleteModel : PageModel
     {
         private readonly Cinderella.Models.CinderellaContext _context;

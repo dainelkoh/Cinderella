@@ -14,7 +14,7 @@ using Cinderella.Areas.Identity.Pages.Account;
 
 namespace Cinderella.Pages.Shoes
 {
-    [Authorize(Roles = "Admin, Staff")]
+    [Authorize(Roles = "Staff")]
     public class CreateModel : PageModel
     {
         private readonly Cinderella.Models.CinderellaContext _context;

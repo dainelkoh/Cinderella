@@ -12,7 +12,7 @@ using Stripe;
 
 namespace Cinderella.Pages
 {
-    [Authorize]
+    [Authorize(Roles = "Customer")]
     public class CheckOutModel : PageModel
     {
         private readonly Cinderella.Models.CinderellaContext _context;

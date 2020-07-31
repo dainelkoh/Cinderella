@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Identity.UI.V3.Pages.Account.Manage.Internal;
 
 namespace Cinderella.Pages.Shoes
 {
-    [Authorize(Roles = "Admin, Staff")]
+    [Authorize(Roles = "Staff")]
     public class EditModel : PageModel
     {
         private readonly Cinderella.Models.CinderellaContext _context;
