@@ -119,6 +119,17 @@ namespace Cinderella.Areas.Identity.Pages.Account
             }
             return Page();
         }
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return Page();
+            }
+        }
 
     }
 }

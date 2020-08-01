@@ -5,55 +5,50 @@
 }
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <link rel="stylesheet" href="~/css/bootstrap.min.css">
-<h1>@ViewData["Title"]</h1>
-
-
-<div class="row">
-    <div class="col-md-4">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Create a new account.</h4>
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Input.Email"></label>
-                <input asp-for="Input.Email" class="form-control" />
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            @*<div class="form-group">
-                    <label asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="form-control" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Input.ConfirmPassword"></label>
-                    <input asp-for="Input.ConfirmPassword" class="form-control" />
-                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-                </div>*@
-            <div class="form-group">
-                <label asp-for="Input.FullName"></label>
-                <input asp-for="Input.FullName" class="form-control" />
-                <span asp-validation-for="Input.FullName" class="text-danger"></span>
-
-            </div>
-            <div class="form-group">
-                @*<span asp-validation-for="Input.recaptcha" class="text-danger"></span>*@
-                @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-                {
-                    @*@Html.TextBox("name")<br /><br />*@
-                    <div class="g-recaptcha"
-                         data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div><br />
-
-                    <input type="submit" value="Submit"  class="btn btn-primary" />
-                    <strong>@Html.ValidationSummary()</strong>
-                }
-            </div>
-            @*<button type="submit" value="Submit" class="btn btn-primary">Register</button>*@
-        </form>
-    </div>
+<div class="text-center">
+    <h1>@ViewData["Title"]</h1>
 </div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
-@*Recaptcha Test keys
-    https://developers.google.com/recaptcha/docs/faq#id-like-to-run-automated-tests-with-recaptcha.-what-should-i-do*@
+
+<div class="col-lg-12" style="margin-left:33%;">
+    <div class="row">
+        <div class="col-md-4">
+            <section id="login-page">
+                <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    <h4>Create a new account.</h4>
+                    <hr />
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Input.Email"></label>
+                        <input asp-for="Input.Email" class="form-control" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.FullName"></label>
+                        <input asp-for="Input.FullName" class="form-control" />
+                        <span asp-validation-for="Input.FullName" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group" style="text-align:center;">
+                        @*<span asp-validation-for="Input.recaptcha" class="text-danger"></span>*@
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                        {
+                            @*@Html.TextBox("name")<br /><br />*@
+                            <div class="g-recaptcha"
+                                 data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div><br />
+
+                            <input type="submit" value="Submit" class="btn btn-primary" />
+                            <strong>@Html.ValidationSummary()</strong>
+                        }
+                    </div>
+                    @*<button type="submit" value="Submit" class="btn btn-primary">Register</button>*@
+                </form>
+            </section>
+        </div>
+    </div>
+</div>
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+    @*Recaptcha Test keys
+        https://developers.google.com/recaptcha/docs/faq#id-like-to-run-automated-tests-with-recaptcha.-what-should-i-do*@

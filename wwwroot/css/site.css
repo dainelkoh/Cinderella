@@ -1197,3 +1197,28 @@ strong {
     font-size: 175%;
     line-height: 1.4286;
 }
+/*======================================================================================================================================================================================================================================================*/
+/*Login Page*/
+#login-page {
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 5%;
+    background-color: grey;
+    /*background: url(https://wallpapercave.com/wp/wp5399435.jpg);*/
+    background-size: cover;
+    position: relative;
+    z-index: 2;
+    box-shadow: -20px 10px 20px 5px rgba(128, 128, 128, 0.76);
+}
+#account{
+   color: white;
+}
+#froget-pass {
+    text-align: center;
+    color: #bbb;
+    margin: 0;
+    display: block;
+}
+#login-page{
+    color:white;
+}
