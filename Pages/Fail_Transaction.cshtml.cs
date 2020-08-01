@@ -12,9 +12,10 @@ namespace Cinderella.Pages
     [Authorize]
     public class Fail_TransactionModel : PageModel
     {
-        public void OnGet()
-        {
-
-        }
+        //public String e { get; set; }    
+        //public void OnGet(Exception E)
+        //{
+        //    e = E.Message;
+        //}
     }
 }

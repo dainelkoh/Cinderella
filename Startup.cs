@@ -53,11 +53,11 @@ namespace Cinderella
                services.Configure<IdentityOptions>(options =>
                {
                     // Password settings
-                    options.Password.RequireDigit = false;
-                    options.Password.RequiredLength = 5;
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequireUppercase = false;
-                    options.Password.RequireLowercase = false;
+                    options.Password.RequireDigit = true;
+                    options.Password.RequiredLength = 8;
+                    options.Password.RequireNonAlphanumeric = true;
+                    options.Password.RequireUppercase = true;
+                    options.Password.RequireLowercase = true;
                     options.Password.RequiredUniqueChars = 1;
 
                     // Lockout settings
@@ -88,18 +88,18 @@ namespace Cinderella
           public void Configure(IApplicationBuilder app, IHostingEnvironment env)
           {
             StripeConfiguration.ApiKey = "sk_test_51H94fhCxH34RknCHpZXv7m5wZHqGbbfhSL0XGheU36xzg0Ucf7gJKiNTQiHZaKX1akiPepHDCcKW10CL4s6JGj0M00PtUmlX6J";
-               //if (env.IsDevelopment())
-               //{
-               //     app.UseDeveloperExceptionPage();
-               //}
-               //else
-               //{
-            app.UseStatusCodePages("text/html", "<h1>Status code page</h1> <h2>Status Code: {0}</h2>");
-               app.UseExceptionHandler("/Error");
-               //}
+            //if (env.IsDevelopment())
+            //{
+            app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            //app.UseStatusCodePages("text/html", "<h1>Status code page</h1> <h2>Status Code: {0}</h2>");
+            //   app.UseExceptionHandler("/Error");
+            //}
 
-               
-               app.UseHttpsRedirection();
+
+            app.UseHttpsRedirection();
                app.UseStaticFiles();
                app.UseAuthentication();
                app.UseCookiePolicy();

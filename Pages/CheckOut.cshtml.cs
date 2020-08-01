@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Cinderella.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -59,42 +60,52 @@ namespace Cinderella.Pages
 
             var customers = new CustomerService();
             var charges = new ChargeService();
-            var customer = customers.Create(new CustomerCreateOptions
-            {
-                Email = stripeEmail,
-                Source = stripeToken
-            });
-
-            var charge = charges.Create(new ChargeCreateOptions
-            {
-                Amount = Convert.ToInt64(shoe.Price)*100,   //Need to change the amount to shopping cart page
-                Description = shoe.Name,
-                Currency = "sgd",
-                Customer = customer.Id,
-                ReceiptEmail = stripeEmail // Send email receipt to customer
-            });
-            if (charge.Status == "succeeded")
-            {
-
-                var user = await _userManager.GetUserAsync(User);
-                Bought QueryBought = new Bought { Id = user.Id, ShoeID = shoe.ShoeID };
-                var bought = await _context.bought.FirstOrDefaultAsync(m => m == QueryBought);
-
-                if(bought == null)
+            try { 
+                var customer = customers.Create(new CustomerCreateOptions
                 {
-                    _context.bought.Add(QueryBought);
-                    await _context.SaveChangesAsync();
+                    Email = stripeEmail,
+                    Source = stripeToken
+                });
+
+            
+            
+                var charge = charges.Create(new ChargeCreateOptions
+                {
+                    Amount = Convert.ToInt64(shoe.Price) * 100,   //Need to change the amount to shopping cart page
+                    Description = shoe.Name,
+                    Currency = "sgd",
+                    Customer = customer.Id,
+                    ReceiptEmail = stripeEmail // Send email receipt to customer
+                });
+                
+                
+                if (charge.Status == "succeeded")
+                {
+
+                    var user = await _userManager.GetUserAsync(User);
+                    Bought QueryBought = new Bought { Id = user.Id, ShoeID = shoe.ShoeID };
+                    var bought = await _context.bought.FirstOrDefaultAsync(m => m == QueryBought);
+
+                    if (bought == null)
+                    {
+                        _context.bought.Add(QueryBought);
+                        await _context.SaveChangesAsync();
+                    }
+
+                    return RedirectToPage("./Success_Page");
                 }
+                else
+                {
+                    //should make this display the error, like 'insufficient funds' or smth
+                    return RedirectToPage("./Fail_Transaction");
 
-                return RedirectToPage("./Success_Page");
+                }
+                
             }
-            else
-            {
-                //should make this display the error, like 'insufficient funds' or smth
+            catch() 
+            {   
                 return RedirectToPage("./Fail_Transaction");
-
             }
-
         }
 
     }
