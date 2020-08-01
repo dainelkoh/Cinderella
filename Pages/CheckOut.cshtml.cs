@@ -102,7 +102,7 @@ namespace Cinderella.Pages
                 }
                 
             }
-            catch() 
+            catch
             {   
                 return RedirectToPage("./Fail_Transaction");
             }
