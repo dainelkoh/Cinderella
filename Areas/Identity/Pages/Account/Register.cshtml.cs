@@ -45,8 +45,8 @@ namespace Cinderella.Areas.Identity.Pages.Account
         public InputModel Input { get; set; }
 
         public string ReturnUrl { get; set; }
-        public ApplicationUser user1 {get; set;}
-
+        public ApplicationUser User1 {get; set;}
+        public bool IsAlrUser { get; set; }
         public class InputModel
         {
             [Required]
@@ -75,18 +75,20 @@ namespace Cinderella.Areas.Identity.Pages.Account
 
         }
 
-        public void OnGet(string returnUrl = null)
+        public void OnGet(bool isalruser = false, string returnUrl = null)
         {
             ReturnUrl = returnUrl;
+            IsAlrUser = isalruser;
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            var user1 = await _context.Users.FirstOrDefaultAsync(m => m.Email == Input.Email);
+            var User1 = await _context.Users.FirstOrDefaultAsync(m => m.Email == Input.Email);
 
-            if (user1 != null)
+            if (User1 != null)
             {
-                //Email alr exists
+                IsAlrUser = true;
+                return RedirectToPage("../Account/Register", new { isalruser = IsAlrUser });
             }
 
             returnUrl = returnUrl ?? Url.Content("~/");
