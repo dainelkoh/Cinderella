@@ -61,9 +61,10 @@ namespace Cinderella.Pages.Shoes
                 var auditrecord = new AuditRecord();
                 auditrecord.AuditActionType = "Add Shoe Record";
                 auditrecord.DateTimeStamp = DateTime.Now;
-                auditrecord.KeyShoeFieldID = Shoe.ShoeID;
-
+                
                 var userID = User.Identity.Name.ToString();
+                auditrecord.Desc = String.Format("Shoe record with shoe id:{0} was added by {1}", Shoe.ShoeID, userID);
+
                 auditrecord.Username = userID;
 
                 _context.AuditRecords.Add(auditrecord);

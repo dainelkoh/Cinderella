@@ -82,9 +82,10 @@ namespace Cinderella.Pages.Shoes
                 var auditrecord = new AuditRecord();
                 auditrecord.AuditActionType = "Remove review";
                 auditrecord.DateTimeStamp = DateTime.Now;
-                auditrecord.KeyShoeFieldID = Shoe.ShoeID;
 
                 var userID = User.Identity.Name.ToString();
+                auditrecord.Desc = String.Format("Shoe review with Review id:{0} was removed by {1}", reviewId, userID);
+
                 auditrecord.Username = userID;
 
                 _context.AuditRecords.Add(auditrecord);

@@ -87,7 +87,7 @@ namespace Cinderella.Areas.Identity.Pages.Account
                     var auditrecord = new AuditRecord();
                     auditrecord.AuditActionType = "Failed Login";
                     auditrecord.DateTimeStamp = DateTime.Now;
-                    auditrecord.KeyShoeFieldID = 999;
+                    auditrecord.Desc = String.Format("{0} failed to log in", Input.Email);
 
                     auditrecord.Username = Input.Email;
                     _context.AuditRecords.Add(auditrecord);

@@ -21,8 +21,8 @@ namespace Cinderella.Models
           [DataType(DataType.DateTime)]
           public DateTime DateTimeStamp { get; set; }
 
-          [Display(Name = "Shoe Record ID ")]
-          public int KeyShoeFieldID { get; set; }
+          [Display(Name = "Description ")]
+          public string Desc { get; set; }
      }
 
 }
