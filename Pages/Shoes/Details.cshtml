@@ -58,7 +58,9 @@
                     @Html.DisplayFor(modelItem => reviews.ReviewName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => reviews.ReviewWords)
+                    <div style="word-wrap: break-word;">
+                        @Html.DisplayFor(modelItem => reviews.ReviewWords)
+                    </div>
                 </td>
             </tr>
         }
