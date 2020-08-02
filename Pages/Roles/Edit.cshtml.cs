@@ -14,11 +14,14 @@ namespace Cinderella.Pages.Roles
      public class EditModel : PageModel
      {
           private readonly RoleManager<ApplicationRole> _roleManager;
-
-          public EditModel(RoleManager<ApplicationRole> roleManager)
+        private readonly Cinderella.Models.CinderellaContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        public EditModel(Cinderella.Models.CinderellaContext context, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
           {
                _roleManager = roleManager;
-          }
+            _context = context;
+            _userManager = userManager;
+        }
 
           [BindProperty]
           public ApplicationRole ApplicationRole { get; set; }
@@ -54,12 +57,18 @@ namespace Cinderella.Pages.Roles
 
                IdentityResult roleRuslt = await _roleManager.UpdateAsync(appRole);
 
-               if (roleRuslt.Succeeded)
-               {
-                    return RedirectToPage("./Index");
+            var auditrecord = new AuditRecord();
+            auditrecord.AuditActionType = "Editted Role";
+            auditrecord.DateTimeStamp = DateTime.Now;
 
-               }
-               return RedirectToPage("./Index");
+            var userID = User.Identity.Name.ToString();
+            auditrecord.Desc = String.Format("User Role called '{0}' was edited by {1}", ApplicationRole.Name, userID);
+
+            auditrecord.Username = userID;
+
+            _context.AuditRecords.Add(auditrecord);
+            await _context.SaveChangesAsync();
+            return RedirectToPage("./Index");
           }
      }
 }

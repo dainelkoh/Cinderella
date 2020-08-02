@@ -14,11 +14,14 @@ namespace Cinderella.Pages.Roles
      public class DeleteModel : PageModel
      {
           private readonly RoleManager<ApplicationRole> _roleManager;
-
-          public DeleteModel(RoleManager<ApplicationRole> roleManager)
+        private readonly Cinderella.Models.CinderellaContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        public DeleteModel(Cinderella.Models.CinderellaContext context, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
           {
                _roleManager = roleManager;
-          }
+            _context = context;
+            _userManager = userManager;
+        }
 
           [BindProperty]
           public ApplicationRole ApplicationRole { get; set; }
@@ -48,8 +51,17 @@ namespace Cinderella.Pages.Roles
 
                ApplicationRole = await _roleManager.FindByIdAsync(id);
                IdentityResult roleRuslt = await _roleManager.DeleteAsync(ApplicationRole);
+            var auditrecord = new AuditRecord();
+            auditrecord.AuditActionType = "Delete Role";
+            auditrecord.DateTimeStamp = DateTime.Now;
 
-               return RedirectToPage("./Index");
+            var userID = User.Identity.Name.ToString();
+            auditrecord.Desc = String.Format("User Role called '{0}' was deleted by {1}", ApplicationRole.Name, userID);
+            auditrecord.Username = userID;
+
+            _context.AuditRecords.Add(auditrecord);
+            await _context.SaveChangesAsync();
+            return RedirectToPage("./Index");
           }
      }
 }
