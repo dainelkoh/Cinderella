@@ -21,8 +21,7 @@ namespace Cinderella.Models
 
         public DbSet<Cinderella.Models.Shoe> Shoe { get; set; }
         public DbSet<Cinderella.Models.AuditRecord> AuditRecords { get; set; }
-        public DbSet<Cinderella.Models.Review> reviews { get; set; }
-        public DbSet<Cinderella.Models.ReviewDesc> reviewDescs { get; set; }
+        public DbSet<Cinderella.Models.ReviewFinal> ReviewFinals { get; set; } 
         public DbSet<Cinderella.Models.Bought> bought { get; set; }
     }
 }

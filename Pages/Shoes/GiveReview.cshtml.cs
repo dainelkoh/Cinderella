@@ -17,10 +17,9 @@ namespace Cinderella.Pages.Shoes
             _context = context;
         }
         [BindProperty]
-        public ReviewDesc ReviewDesc { get; set; }
+        public ReviewFinal Review { get; set; }
         public Shoe Shoe { get; set; }
         public int Id { get; set; }
-        public Review Review { get; set; }
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -49,17 +48,8 @@ namespace Cinderella.Pages.Shoes
                 return Page();
             }
 
-            Review Review = new Review
-            {
-                ShoeID = id
-            };
-
-
-            ReviewDesc.ReviewID = Review.ReviewID;
-            _context.reviews.Add(Review);
-            await _context.SaveChangesAsync();
-            _context.reviewDescs.Add(ReviewDesc);
-
+            Review.ShoeID = id;
+            _context.ReviewFinals.Add(Review);
             await _context.SaveChangesAsync();
             return RedirectToPage("./Details/", new { id = id });
         }

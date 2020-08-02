@@ -2,31 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cinderella.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Cinderella.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 
 namespace Cinderella.Pages.Shoes
 {
-    [Authorize]
-    public class DetailsModel : PageModel
+    public class testModel : PageModel
     {
         private readonly Cinderella.Models.CinderellaContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        public DetailsModel(Cinderella.Models.CinderellaContext context, UserManager<ApplicationUser> userManager)
+        public testModel(Cinderella.Models.CinderellaContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
-
         public Shoe Shoe { get; set; }
         public ReviewFinal Review { get; set; }
         public IList<ReviewFinal> Reviews { get; set; }
-        public bool Reviewable { get; set; }
-
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -40,22 +35,8 @@ namespace Cinderella.Pages.Shoes
                 return NotFound();
             }
 
-            var user = await _userManager.GetUserAsync(User);
-            Bought QueryBought = new Bought { Id = user.Id, ShoeID = Shoe.ShoeID };
-            var bought = await _context.bought.FirstOrDefaultAsync(m => m == QueryBought);
-
-            if (bought == null)
-            {
-                Reviewable = false;
-            }
-            else
-            {
-                Reviewable = true;
-            }
-
-
             Review = await _context.ReviewFinals.FirstOrDefaultAsync(m => m.ShoeID == id);
-            if(Review == null)
+            if (Review == null)
             {
                 ReviewFinal NullReview = new ReviewFinal
                 {
@@ -68,10 +49,28 @@ namespace Cinderella.Pages.Shoes
             }
             else
             {
-                var reviewQuery = from s in _context.ReviewFinals
-                                 select s;
-                Reviews = await reviewQuery.ToListAsync();
+                var ReviewsQ = from s in _context.ReviewFinals
+                               select s;
+                Reviews = await ReviewsQ.ToListAsync();
             }
+
+            return Page();
+        }
+
+        public async Task<IActionResult> RemoveReview(int reviewId, int shoeId)
+        {
+            Shoe = await _context.Shoe.FirstOrDefaultAsync(m => m.ShoeID == shoeId);
+            if (Shoe == null)
+            {
+                return Page();
+            }
+
+            Review = await _context.ReviewFinals.FirstOrDefaultAsync(m => m.ShoeID == shoeId);
+            if (Review == null)
+            {
+                return Page();
+            }
+            _context.ReviewFinals.Remove(Review);
             return Page();
         }
     }

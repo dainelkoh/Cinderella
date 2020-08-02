@@ -51,16 +51,14 @@
             <th>Name</th>
             <th>Review</th>
         </tr>
-        @foreach (var reviews in Model.ReviewDesc)
+        @foreach (var reviews in Model.Reviews)
         {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => reviews.ReviewName)
                 </td>
                 <td>
-                    <div style="word-wrap: break-word;">
-                        @Html.DisplayFor(modelItem => reviews.ReviewWords)
-                    </div>
+                    @Html.DisplayFor(modelItem => reviews.ReviewWords)
                 </td>
             </tr>
         }
@@ -69,4 +67,6 @@
 <div class="text-center">
     <a asp-page="../CheckOut" asp-route-id="@Model.Shoe.ShoeID" class="btn btn-primary" style="padding-right:10px;">Add to Cart</a> |
     <a asp-page="./Index" class="btn btn-primary" style="padding-left:10px;">Back to List</a>
+    <br />
+    <a asp-page="./ManageReviews"asp-route-id="@Model.Shoe.ShoeID" class="btn btn-primary" style="padding-left:10px;">Manage Reviews</a>
 </div>
