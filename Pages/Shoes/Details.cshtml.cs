@@ -21,7 +21,7 @@ namespace Cinderella.Pages.Shoes
             _context = context;
             _userManager = userManager;
         }
-
+        public bool isAuth { get; set; }
         public Shoe Shoe { get; set; }
         public ReviewFinal Review { get; set; }
         public IList<ReviewFinal> Reviews { get; set; }
@@ -55,7 +55,7 @@ namespace Cinderella.Pages.Shoes
 
 
             Review = await _context.ReviewFinals.FirstOrDefaultAsync(m => m.ShoeID == id);
-            if(Review == null)
+            if (Review == null)
             {
                 ReviewFinal NullReview = new ReviewFinal
                 {
@@ -69,8 +69,13 @@ namespace Cinderella.Pages.Shoes
             else
             {
                 var reviewQuery = from s in _context.ReviewFinals
-                                 select s;
+                                  select s;
                 Reviews = await reviewQuery.ToListAsync();
+            }
+
+            if (User.IsInRole("Staff") || User.IsInRole("Admin"))
+            {
+                isAuth = true;
             }
             return Page();
         }

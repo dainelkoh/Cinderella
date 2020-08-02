@@ -68,5 +68,9 @@
     <a asp-page="../CheckOut" asp-route-id="@Model.Shoe.ShoeID" class="btn btn-primary" style="padding-right:10px;">Add to Cart</a> |
     <a asp-page="./Index" class="btn btn-primary" style="padding-left:10px;">Back to List</a>
     <br />
-    <a asp-page="./ManageReviews"asp-route-id="@Model.Shoe.ShoeID" class="btn btn-primary" style="padding-left:10px;">Manage Reviews</a>
+    <br />
+    @if (Model.isAuth) 
+    { 
+        <a asp-page="./ManageReviews"asp-route-id="@Model.Shoe.ShoeID" class="btn btn-primary" style="padding-left:10px;">Manage Reviews</a>
+    }
 </div>
