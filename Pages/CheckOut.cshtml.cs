@@ -92,6 +92,9 @@ namespace Cinderella.Pages
                         await _context.SaveChangesAsync();
                     }
 
+                    TransactionLog log = new TransactionLog { Id = user.Id, TransactionNumber = charge.Id, Time = DateTime.Now };
+                    _context.TransactionLogs.Add(log);
+                    await _context.SaveChangesAsync();
                     return RedirectToPage("./Success_Page");
                 }
                 else

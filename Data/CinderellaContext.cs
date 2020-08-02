@@ -23,5 +23,6 @@ namespace Cinderella.Models
         public DbSet<Cinderella.Models.AuditRecord> AuditRecords { get; set; }
         public DbSet<Cinderella.Models.ReviewFinal> ReviewFinals { get; set; } 
         public DbSet<Cinderella.Models.Bought> bought { get; set; }
+        public DbSet<Cinderella.Models.TransactionLog> TransactionLogs { get; set; }
     }
 }

@@ -177,6 +177,20 @@ namespace Cinderella.Migrations
                     b.ToTable("Shoe");
                 });
 
+            modelBuilder.Entity("Cinderella.Models.TransactionLog", b =>
+                {
+                    b.Property<string>("TransactionNumber")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Id");
+
+                    b.Property<DateTime>("Time");
+
+                    b.HasKey("TransactionNumber");
+
+                    b.ToTable("TransactionLogs");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
