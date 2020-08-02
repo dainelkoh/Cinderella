@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Cinderella.Pages.Audit
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Administrator")]
     public class DeleteModel : PageModel
     {
         private readonly Cinderella.Models.CinderellaContext _context;
