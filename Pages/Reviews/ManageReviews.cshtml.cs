@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cinderella.Pages.Shoes
+namespace Cinderella.Pages.Reviews
 {
-    [Authorize(Roles = "Staff, Admin")]
+    [Authorize(Roles = "Staff")]
     public class ManageReviewsModel : PageModel
     {
         private readonly Cinderella.Models.CinderellaContext _context;

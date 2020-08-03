@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Cinderella.Migrations
 {
-    public partial class AddIdentitySchema : Migration
+    public partial class RebuildDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,10 @@ namespace Cinderella.Migrations
                     Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true)
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    IPAddress = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -51,19 +54,75 @@ namespace Cinderella.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AuditRecords",
+                columns: table => new
+                {
+                    Audit_ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AuditActionType = table.Column<string>(nullable: true),
+                    Username = table.Column<string>(nullable: true),
+                    DateTimeStamp = table.Column<DateTime>(nullable: false),
+                    Desc = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AuditRecords", x => x.Audit_ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "bought",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    ShoeID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_bought", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReviewFinals",
+                columns: table => new
+                {
+                    ReviewID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ShoeID = table.Column<int>(nullable: false),
+                    ReviewName = table.Column<string>(maxLength: 32, nullable: false),
+                    ReviewWords = table.Column<string>(maxLength: 256, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReviewFinals", x => x.ReviewID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Shoe",
                 columns: table => new
                 {
                     ShoeID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
                     Image = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    Price = table.Column<decimal>(type: "decimal(18, 2)", nullable: false)
+                    Price = table.Column<decimal>(type: "decimal(6, 2)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Shoe", x => x.ShoeID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TransactionLogs",
+                columns: table => new
+                {
+                    TransactionNumber = table.Column<string>(nullable: false),
+                    Id = table.Column<string>(nullable: true),
+                    Time = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TransactionLogs", x => x.TransactionNumber);
                 });
 
             migrationBuilder.CreateTable(
@@ -230,7 +289,19 @@ namespace Cinderella.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "AuditRecords");
+
+            migrationBuilder.DropTable(
+                name: "bought");
+
+            migrationBuilder.DropTable(
+                name: "ReviewFinals");
+
+            migrationBuilder.DropTable(
                 name: "Shoe");
+
+            migrationBuilder.DropTable(
+                name: "TransactionLogs");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

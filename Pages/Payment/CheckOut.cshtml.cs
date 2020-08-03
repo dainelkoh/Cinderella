@@ -12,8 +12,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Stripe;
 
-namespace Cinderella.Pages
+namespace Cinderella.Pages.Payment
 {
+    [Authorize]
     public class CheckOutModel : PageModel
     {
         private readonly Cinderella.Models.CinderellaContext _context;

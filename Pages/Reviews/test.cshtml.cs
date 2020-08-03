@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cinderella.Pages.Shoes
+namespace Cinderella.Pages.Reviews
 {
     public class testModel : PageModel
     {

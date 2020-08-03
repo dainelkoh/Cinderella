@@ -6,9 +6,11 @@ using Cinderella.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
-namespace Cinderella.Pages.Shoes
+namespace Cinderella.Pages.Reviews
 {
+    [Authorize]
     public class GiveReviewModel : PageModel
     {
         private readonly Cinderella.Models.CinderellaContext _context;
@@ -51,7 +53,7 @@ namespace Cinderella.Pages.Shoes
             Review.ShoeID = id;
             _context.ReviewFinals.Add(Review);
             await _context.SaveChangesAsync();
-            return RedirectToPage("./Details/", new { id = id });
+            return RedirectToPage("../Shoes/Details/", new { id = id });
         }
     }
 }

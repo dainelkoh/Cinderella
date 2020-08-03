@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinderella.Migrations
 {
     [DbContext(typeof(CinderellaContext))]
-    [Migration("20200727164344_AddImageUpload7")]
-    partial class AddImageUpload7
+    [Migration("20200803191908_RebuildDatabase")]
+    partial class RebuildDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -118,13 +118,46 @@ namespace Cinderella.Migrations
 
                     b.Property<DateTime>("DateTimeStamp");
 
-                    b.Property<int>("KeyShoeFieldID");
+                    b.Property<string>("Desc");
 
                     b.Property<string>("Username");
 
                     b.HasKey("Audit_ID");
 
                     b.ToTable("AuditRecords");
+                });
+
+            modelBuilder.Entity("Cinderella.Models.Bought", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ShoeID");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("bought");
+                });
+
+            modelBuilder.Entity("Cinderella.Models.ReviewFinal", b =>
+                {
+                    b.Property<int>("ReviewID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ReviewName")
+                        .IsRequired()
+                        .HasMaxLength(32);
+
+                    b.Property<string>("ReviewWords")
+                        .IsRequired()
+                        .HasMaxLength(256);
+
+                    b.Property<int>("ShoeID");
+
+                    b.HasKey("ReviewID");
+
+                    b.ToTable("ReviewFinals");
                 });
 
             modelBuilder.Entity("Cinderella.Models.Shoe", b =>
@@ -146,6 +179,20 @@ namespace Cinderella.Migrations
                     b.HasKey("ShoeID");
 
                     b.ToTable("Shoe");
+                });
+
+            modelBuilder.Entity("Cinderella.Models.TransactionLog", b =>
+                {
+                    b.Property<string>("TransactionNumber")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Id");
+
+                    b.Property<DateTime>("Time");
+
+                    b.HasKey("TransactionNumber");
+
+                    b.ToTable("TransactionLogs");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

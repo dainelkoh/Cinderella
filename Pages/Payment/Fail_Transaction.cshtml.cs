@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 
-namespace Cinderella.Pages
+namespace Cinderella.Pages.Payment
 {
     [Authorize]
     public class Fail_TransactionModel : PageModel
