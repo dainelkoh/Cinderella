@@ -14,11 +14,13 @@ namespace Cinderella.Models
 
         [ForeignKey("Shoe")]
         public int ShoeID { get; set; }
-        [System.ComponentModel.DataAnnotations.MaxLength(32)]
-        [System.ComponentModel.DataAnnotations.MinLength(1)]
+        
+        [Required]
+        [StringLength(32, MinimumLength = 1)]
         public string ReviewName { get; set; }
-        [System.ComponentModel.DataAnnotations.MaxLength(512)]
-        [System.ComponentModel.DataAnnotations.MinLength(1)]
+
+        [Required]
+        [StringLength(256, MinimumLength = 10, ErrorMessage ="The review is limited to 10 and 256 letters.")]
         public string ReviewWords { get; set; }
     }
 }
