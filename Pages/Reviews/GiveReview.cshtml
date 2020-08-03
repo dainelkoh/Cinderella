@@ -1,10 +1,10 @@
-﻿@page
+﻿@page "{id:int?}"
 @model Cinderella.Pages.Shoes.GiveReviewModel
 @{
     ViewData["Title"] = "GiveReview";
 }
 
-<h1>Give Review for @Model.Shoe.</h1>
+<h1>Give Review for @Model.Shoe.Name</h1>
 
 <h4>Shoe</h4>
 <hr />
@@ -32,7 +32,7 @@
 </div>
 
 <div>
-    <a asp-page="./Details" asp-route-id="@Model.Id">Back to Details</a>
+    <a asp-page="../Shoes/Details" asp-route-id="@Model.Id">Back to Details</a>
 </div>
 
 @section Scripts {

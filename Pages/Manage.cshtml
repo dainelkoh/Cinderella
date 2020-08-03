@@ -1,7 +1,7 @@
 ﻿@page
-@model Cinderella.Pages.StaffModel
+@model Cinderella.Pages.ManageModel
 @{
-    ViewData["Title"] = "Staff";
+    ViewData["Title"] = "Manage Website";
 }
 
 <h1>Website Management</h1>
@@ -11,6 +11,10 @@
         <tr>
             <th>Shoes</th>
             <td><a asp-page="/Shoes/Manage">Manage</a></td>
+        </tr>
+        <tr>
+            <th>Reviews</th>
+            <td><a asp-page="/Reviews/">Manage</a></td>
         </tr>         
         <tr>
             <th>Role Listings</th>

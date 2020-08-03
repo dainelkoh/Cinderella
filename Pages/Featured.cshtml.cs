@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Cinderella.Pages
 {
-    public class Shoe_GallaryModel : PageModel
+    public class FeaturedModel : PageModel
     {
         public void OnGet()
         {

@@ -91,7 +91,7 @@ namespace Cinderella.Pages.Shoes
                 _context.AuditRecords.Add(auditrecord);
                 await _context.SaveChangesAsync();
 
-            return RedirectToPage("../Shoes/ManageReviews", new { id = shoeId });
+            return RedirectToPage("../Reviews/ManageReviews", new { id = shoeId });
         }
     }
 }

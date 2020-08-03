@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace Cinderella.Pages
 {
     [Authorize(Roles = "Admin, Staff")]
-    public class StaffModel : PageModel
+    public class ManageModel : PageModel
     {
         public void OnGet()
         {
