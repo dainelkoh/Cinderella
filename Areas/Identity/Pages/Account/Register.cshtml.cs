@@ -13,6 +13,9 @@ using Microsoft.Extensions.Logging;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.Net.Http;
+using Newtonsoft.Json.Linq;
 
 namespace Cinderella.Areas.Identity.Pages.Account
 {
@@ -24,15 +27,18 @@ namespace Cinderella.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IConfiguration configuration;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
+            IConfiguration configuration,
             Cinderella.Models.CinderellaContext context
             )
         {
+            this.configuration = configuration;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
@@ -83,6 +89,38 @@ namespace Cinderella.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            string recaptchaResponse = this.Request.Form["g-recaptcha-response"];
+            var client = HttpClientFactory.Create();
+            try
+            {
+                var parameters = new Dictionary<string, string>
+            {
+                {"secret", this.configuration["reCAPTCHA:SecretKey"]},
+                {"response", recaptchaResponse},
+                {"remoteip", this.HttpContext.Connection.RemoteIpAddress.ToString()}
+            };
+
+                HttpResponseMessage response = await client.PostAsync("https://www.google.com/recaptcha/api/siteverify", new FormUrlEncodedContent(parameters));
+                response.EnsureSuccessStatusCode();
+
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                dynamic apiJson = JObject.Parse(apiResponse);
+                if (apiJson.success != true)
+                {
+                    this.ModelState.AddModelError(string.Empty, "Please verify that you are a human");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                // Something went wrong with the API. Let the request through.
+                _logger.LogError(ex, "Unexpected error calling reCAPTCHA api.");
+            }
+
+
+            //this is  the boundary
+
+
+
             var User1 = await _context.Users.FirstOrDefaultAsync(m => m.Email == Input.Email);
 
             if (User1 != null)
@@ -126,11 +164,13 @@ namespace Cinderella.Areas.Identity.Pages.Account
                     mail.Body = Body;
                     mail.IsBodyHtml = false;
                     mail.From = new MailAddress("cinderella.shoesg@gmail.com");
-                    SmtpClient smtp = new SmtpClient("smtp.gmail.com");
-                    smtp.Port = 587;
-                    smtp.UseDefaultCredentials = true;
-                    smtp.EnableSsl = true;             //use SSL to secure connection
-                    smtp.Credentials = new System.Net.NetworkCredential("cinderella.shoesg@gmail.com", "Cinderella123!");
+                    SmtpClient smtp = new SmtpClient("smtp.gmail.com")
+                    {
+                        Port = 587,
+                        UseDefaultCredentials = true,
+                        EnableSsl = true,             //use SSL to secure connection
+                        Credentials = new System.Net.NetworkCredential("cinderella.shoesg@gmail.com", "Cinderella123!")
+                    };
                     await smtp.SendMailAsync(mail);
                     return RedirectToPage("./ConfirmationPage");
 

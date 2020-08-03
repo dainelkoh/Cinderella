@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
+using System.Net.Http;
+using Newtonsoft.Json.Linq;
 
 namespace Cinderella.Areas.Identity.Pages.Account
 {
@@ -19,11 +22,13 @@ namespace Cinderella.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
         private readonly Cinderella.Models.CinderellaContext _context;
+        private readonly IConfiguration configuration;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, Cinderella.Models.CinderellaContext context)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, IConfiguration configuration, Cinderella.Models.CinderellaContext context)
         {
             _signInManager = signInManager;
             _logger = logger;
+            this.configuration = configuration;
             _context = context;
         }
 
@@ -71,6 +76,33 @@ namespace Cinderella.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
+
+            string recaptchaResponse = this.Request.Form["g-recaptcha-response"];
+            var client = HttpClientFactory.Create();
+            try
+            {
+                var parameters = new Dictionary<string, string>
+            {
+                {"secret", this.configuration["reCAPTCHA:SecretKey"]},
+                {"response", recaptchaResponse},
+                {"remoteip", this.HttpContext.Connection.RemoteIpAddress.ToString()}
+            };
+
+                HttpResponseMessage response = await client.PostAsync("https://www.google.com/recaptcha/api/siteverify", new FormUrlEncodedContent(parameters));
+                response.EnsureSuccessStatusCode();
+
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                dynamic apiJson = JObject.Parse(apiResponse);
+                if (apiJson.success != true)
+                {
+                    this.ModelState.AddModelError(string.Empty, "Please verify that you are a human.");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                // Something went wrong with the API. Let the request through.
+                _logger.LogError(ex, "Unexpected error calling reCAPTCHA api.");
+            }
 
             if (ModelState.IsValid)
             {
