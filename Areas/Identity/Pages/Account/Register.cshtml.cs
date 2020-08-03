@@ -87,6 +87,8 @@ namespace Cinderella.Areas.Identity.Pages.Account
             IsAlrUser = isalruser;
         }
 
+        
+
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             string recaptchaResponse = this.Request.Form["g-recaptcha-response"];
@@ -94,11 +96,11 @@ namespace Cinderella.Areas.Identity.Pages.Account
             try
             {
                 var parameters = new Dictionary<string, string>
-            {
-                {"secret", this.configuration["reCAPTCHA:SecretKey"]},
-                {"response", recaptchaResponse},
-                {"remoteip", this.HttpContext.Connection.RemoteIpAddress.ToString()}
-            };
+                {
+                    {"secret", configuration.GetSection("reCAPTCHA").GetValue<string>("SecretKey")},
+                    {"response", recaptchaResponse},
+                    {"remoteip", this.HttpContext.Connection.RemoteIpAddress.ToString()}
+                };
 
                 HttpResponseMessage response = await client.PostAsync("https://www.google.com/recaptcha/api/siteverify", new FormUrlEncodedContent(parameters));
                 response.EnsureSuccessStatusCode();

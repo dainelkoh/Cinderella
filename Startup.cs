@@ -82,6 +82,7 @@ namespace Cinderella
                     options.SlidingExpiration = true;
                });
                services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
+               services.Configure<RecaptchaSettings>(Configuration.GetSection("reCAPTCHA"));
           }
 
           // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
