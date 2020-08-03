@@ -1222,3 +1222,6 @@ strong {
 #login-page{
     color:white;
 }
+.recaptcha-class{
+    text-align:center;
+}
