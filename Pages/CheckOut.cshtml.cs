@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
 using Cinderella.Models;
@@ -92,6 +93,36 @@ namespace Cinderella.Pages
                         await _context.SaveChangesAsync();
                     }
 
+                    string subject = "Cinderella Order Confirmation";
+                    string To = charge.ReceiptEmail;
+                    string Body = string.Format("Thanks for shopping with Cinderella \nTransaction No. :{0}\nAmount paid: ${1}\nYour order for {2} will be shipped to you shortly",charge.Id, charge.Amount/100, shoe.Name);
+                    MailMessage mail = new MailMessage();
+                    mail.To.Add(To);
+                    mail.Subject = subject;
+                    mail.Body = Body;
+                    mail.IsBodyHtml = false;
+                    mail.From = new MailAddress("cinderella.shoesg@gmail.com");
+                    SmtpClient smtp = new SmtpClient("smtp.gmail.com")
+                    {
+                        Port = 587,
+                        UseDefaultCredentials = true,
+                        EnableSsl = true,             //use SSL to secure connection
+                        Credentials = new System.Net.NetworkCredential("cinderella.shoesg@gmail.com", "Cinderella123!")
+                    };
+                    await smtp.SendMailAsync(mail);
+                    if(charge.ReceiptEmail != user.Email)
+                    {
+                        string nsubject = "Cinderella Order Confirmation";
+                        string nTo = user.Email;
+                        string nBody = string.Format("An order for {0} was made from your account\nIf this is not you, please contact us immediately", shoe.Name);
+                        MailMessage nmail = new MailMessage();
+                        nmail.To.Add(nTo);
+                        nmail.Subject = nsubject;
+                        nmail.Body = nBody;
+                        nmail.IsBodyHtml = false;
+                        nmail.From = new MailAddress("cinderella.shoesg@gmail.com");
+                        await smtp.SendMailAsync(nmail);
+                    }
                     TransactionLog log = new TransactionLog { Id = user.Id, TransactionNumber = charge.Id, Time = DateTime.Now };
                     _context.TransactionLogs.Add(log);
                     await _context.SaveChangesAsync();
