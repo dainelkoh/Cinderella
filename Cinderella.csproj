@@ -15,9 +15,4 @@
     <PackageReference Include="Stripe.net" Version="37.26.0" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Folder Include="wwwroot\images\Resize Image Shoes\" />
-  </ItemGroup>
-
 </Project>
