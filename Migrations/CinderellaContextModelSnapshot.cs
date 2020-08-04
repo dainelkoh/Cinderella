@@ -144,10 +144,12 @@ namespace Cinderella.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ReviewName")
+                        .IsRequired()
                         .HasMaxLength(32);
 
                     b.Property<string>("ReviewWords")
-                        .HasMaxLength(512);
+                        .IsRequired()
+                        .HasMaxLength(256);
 
                     b.Property<int>("ShoeID");
 

@@ -76,7 +76,7 @@ namespace Cinderella.Pages.Shoes
                 Reviews = await reviewQuery.ToListAsync();
             }
 
-            if (User.IsInRole("Staff") || User.IsInRole("Admin"))
+            if (User.IsInRole("Staff"))
             {
                 isAuth = true;
             }

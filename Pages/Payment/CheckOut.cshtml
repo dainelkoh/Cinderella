@@ -1,0 +1,30 @@
+﻿@page "{id:int?}"
+@using Microsoft.Extensions.Options
+@inject IOptions<Cinderella.Data.StripeSettings> Stripe
+@model Cinderella.Pages.Payment.CheckOutModel
+@{
+    ViewData["Title"] = "CheckOut";
+}
+
+<script src="https://kit.fontawesome.com/56529bdc2f.js" crossorigin="anonymous"></script>
+
+
+<div class="text-center">
+    <i class="fab fa-cc-stripe fa-2x"></i> <i class="fab fa-cc-visa fa-2x"></i> <i class="fab fa-cc-mastercard fa-2x"></i> <i class="fab fa-cc-amex fa-2x"></i>
+    <form asp-action="Charge" asp-controller="Home"  method="POST">
+        <input type="hidden" value="@Model.ids" name="id"/>
+        <article>
+            <label>@Model.shoe.Name</label>
+            <br />
+            <label>Amount: $@Model.shoe.Price</label>
+        </article>
+        <script src="https://checkout.stripe.com/v2/checkout.js"
+                class="stripe-button"
+                data-key=@Stripe.Value.PublishableKey
+                data-locale="auto"
+                data-description="Sample Charge"
+                data-amount=@(Model.shoe.Price * 100)>
+        </script>
+    </form>
+</div>
+

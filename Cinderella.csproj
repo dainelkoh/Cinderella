@@ -6,17 +6,6 @@
     <UserSecretsId>8df6c70f-8006-4a62-bd54-3a5e041d1d51</UserSecretsId>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Migrations\20200728141257_AddReview.cs" />
-    <Compile Remove="Migrations\20200728141257_AddReview.Designer.cs" />
-    <Compile Remove="Migrations\20200728141549_test.cs" />
-    <Compile Remove="Migrations\20200728141549_test.Designer.cs" />
-    <Compile Remove="Migrations\20200728141955_AddReview2.cs" />
-    <Compile Remove="Migrations\20200728141955_AddReview2.Designer.cs" />
-    <Compile Remove="Migrations\20200728160459_AddFixforReview.cs" />
-    <Compile Remove="Migrations\20200728160459_AddFixforReview.Designer.cs" />
-  </ItemGroup>
-
 
   <ItemGroup>
     <PackageReference Include="AntiXSS" Version="4.3.0" />
@@ -24,11 +13,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
     <PackageReference Include="Stripe.net" Version="37.26.0" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="wwwroot\images\Resize Image Shoes\" />
   </ItemGroup>
 
 </Project>
