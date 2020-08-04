@@ -84,9 +84,9 @@ namespace Cinderella.Pages.Reviews
                 auditrecord.DateTimeStamp = DateTime.Now;
 
                 var userID = User.Identity.Name.ToString();
-                auditrecord.Desc = String.Format("Shoe review with Review id:{0} was removed by {1}", reviewId, userID);
+                auditrecord.Desc = String.Format("Shoe review with Review id:{0} from Shoe id:{2} was removed by {1}", reviewId, userID, shoeId);
 
-                auditrecord.Username = userID;
+            auditrecord.Username = userID;
 
                 _context.AuditRecords.Add(auditrecord);
                 await _context.SaveChangesAsync();

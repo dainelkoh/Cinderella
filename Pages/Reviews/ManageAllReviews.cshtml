@@ -1,0 +1,50 @@
+﻿@page
+@model Cinderella.Pages.Reviews.ManageAllReviewsModel
+@{
+    ViewData["Title"] = "Manage All Reviews";
+}
+
+<h1>Manage Reviews</h1>
+<br />
+@if (Model.IsDisplayable)
+{
+    <script>alert("No Shoes Found")</script>
+}
+<dd class="col-sm-10">
+    @for (int i = 0; i < Model.ReviewsList.Count; i++)
+    {
+        <p>@Html.DisplayFor(modelItem => Model.Shoes[i].Name) | Shoe id: @Html.DisplayFor(modelItem => Model.Shoes[i].ShoeID)</p>
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Review</th>
+                <th></th>
+            </tr>
+
+            @for (int j = 0; j < Model.ReviewsList[i].Count; j++)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.ReviewsList[i][j].ReviewName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.ReviewsList[i][j].ReviewWords)
+                    </td>
+                    <td>
+                        @if (Model.IsDeleteableList[i])
+                        {
+                            <form method="POST">
+                                <input type="hidden" value="@Model.ReviewsList[i][j].ReviewID" name="reviewId" />
+                                <input type="hidden" value="@Model.ReviewsList[i][j].ShoeID" name="shoeId" />
+                                <div class="form-group">
+                                    <input type="submit" value="Delete" class="btn btn-danger" />
+                                </div>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+            
+        </table>
+    }
+    </dd>

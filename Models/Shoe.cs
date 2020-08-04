@@ -9,7 +9,9 @@ namespace Cinderella.Models
 {
      public class Shoe
      {
-          public int ShoeID { get; set; }
+        internal int Shoesid;
+
+        public int ShoeID { get; set; }
 
           [Required]
           public string Name { get; set; }
