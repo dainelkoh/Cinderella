@@ -8,25 +8,25 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right" style="text-decoration:none;">
             <li>
-                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+                <a class="nav-link text-dark"  asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" style="display:inline;">Hello @UserManager.GetUserName(User)!</a>
             </li>
             <li>
-                <button type="submit" class="nav-link text-dark">Logout</button>
+                <button type="submit" class="nav-link text-dark" style="display:inline;">Logout</button>
             </li>
         </ul>
     </form>
 }
 else
 {
-<ul class="nav navbar-nav navbar-right" id="myNavbar">
-     <li>
-          <a style="display:inline;" asp-area="Identity" asp-page="/Account/Register">Register</a>
-     </li>
-     <li>
-          <a style="display:inline;" asp-area="Identity" asp-page="/Account/Login">Login</a>
-     </li>
+<ul class="nav navbar-nav navbar-right" id="myNavbar" style="text-decoration:none;" >
+    <li>
+        <a style="display:inline;" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </li>
+    <li>
+        <a style="display:inline;" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    </li>
 </ul>
 }
 
