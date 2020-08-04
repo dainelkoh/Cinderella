@@ -71,9 +71,9 @@ namespace Cinderella.Areas.Identity.Pages.Account
             //[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             //public string ConfirmPassword { get; set; }
 
-            [Required]
-            [Display(Name = "Full Name")]
-            public string FullName { get; set; }
+            //[Required]
+            //[Display(Name = "Full Name")]
+            //public string FullName { get; set; }
 
             //[Required]
             //[Display(Name = "recaptcha")]
@@ -153,7 +153,7 @@ namespace Cinderella.Areas.Identity.Pages.Account
                     }
                 }
 
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FullName = Input.FullName };
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email/*, FullName = Input.FullName */};
                 var result = await _userManager.CreateAsync(user, s);
                 if (result.Succeeded)
                 {
