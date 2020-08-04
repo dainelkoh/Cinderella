@@ -58,7 +58,7 @@ namespace Cinderella.Pages.Roles
                IdentityResult roleRuslt = await _roleManager.UpdateAsync(appRole);
 
             var auditrecord = new AuditRecord();
-            auditrecord.AuditActionType = "Edited Role";
+            auditrecord.AuditActionType = "Edit Role";
             auditrecord.DateTimeStamp = DateTime.Now;
 
             var userID = User.Identity.Name.ToString();

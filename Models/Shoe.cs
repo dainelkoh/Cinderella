@@ -9,9 +9,9 @@ namespace Cinderella.Models
 {
      public class Shoe
      {
-        internal int Shoesid;
+          internal int Shoesid;
 
-        public int ShoeID { get; set; }
+          public int ShoeID { get; set; }
 
           [Required]
           public string Name { get; set; }
@@ -20,7 +20,7 @@ namespace Cinderella.Models
           
           public string Description { get; set; }
 
-          [Column(TypeName = "decimal(6, 2)")]
+          [Column(TypeName = "decimal(7, 2)")]
           [Required]
           public decimal Price { get; set; }
     }

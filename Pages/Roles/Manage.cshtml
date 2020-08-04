@@ -49,7 +49,7 @@
             @Html.Label("Assign Role : ")
             @Html.DropDownListFor(m => m.selectedrolename, Model.RolesSelectList, "Select Role", new { @class = "form-control" })
             <br />
-            <input type="submit" value="Assign" />
+            <input type="submit" value="Assign" class="btn btn-primary"/>
           </form>
     </div>
 
@@ -66,7 +66,7 @@
             @Html.Label("Select Role : ")
             @Html.DropDownListFor(m => m.delrolename, Model.RolesSelectList, "Select Role", new { @class = "form-control" })
             <br />
-            <input type="submit" value="Delete this user from Role" asp-page-handler="DeleteUserRole" />
+            <input type="submit" value="Delete this user from Role" asp-page-handler="DeleteUserRole" class="btn btn-primary"/>
         </form>
     </div>
 </div>

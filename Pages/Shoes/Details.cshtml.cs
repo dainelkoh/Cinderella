@@ -6,12 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Cinderella.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
 namespace Cinderella.Pages.Shoes
 {
-    [Authorize]
     public class DetailsModel : PageModel
     {
         private readonly Cinderella.Models.CinderellaContext _context;
@@ -41,21 +39,23 @@ namespace Cinderella.Pages.Shoes
             }
 
             var user = await _userManager.GetUserAsync(User);
-            Bought QueryBought = new Bought { Id = user.Id, ShoeID = Shoe.ShoeID };
-            Bought bought = await _context.bought.FirstOrDefaultAsync(m => m.Id == QueryBought.Id);
-            if (bought == null)
+            if (user != null)
             {
-                Reviewable = true;
+                 Bought QueryBought = new Bought { Id = user.Id, ShoeID = Shoe.ShoeID };
+                 Bought bought = await _context.bought.FirstOrDefaultAsync(m => m.Id == QueryBought.Id);
+                 if (bought == null)
+                 {
+                     Reviewable = false;
+                 }
+                 else if (bought.ShoeID == QueryBought.ShoeID)
+                 {
+                     Reviewable = true;
+                 }
+                 else
+                 {
+                     Reviewable = false;
+                 }
             }
-            else if (bought.ShoeID == QueryBought.ShoeID)
-            {
-                Reviewable = true;
-            }
-            else
-            {
-                Reviewable = false;
-            }
-
 
             Review = await _context.ReviewFinals.FirstOrDefaultAsync(m => m.ShoeID == id);
             if (Review == null)
@@ -71,15 +71,15 @@ namespace Cinderella.Pages.Shoes
             }
             else
             {
-                var reviewQuery = from s in _context.ReviewFinals
+                var reviewQuery = from s in _context.ReviewFinals where s.ShoeID == Shoe.ShoeID
                                   select s;
                 Reviews = await reviewQuery.ToListAsync();
             }
 
-            if (User.IsInRole("Staff"))
-            {
-                isAuth = true;
-            }
+            //if (User.IsInRole("Staff"))
+            //{
+            //    isAuth = true;
+            //}
             return Page();
         }
     }

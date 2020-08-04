@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Cinderella.Pages
 {
-     public class PrivacyModel : PageModel
+     public class AboutModel : PageModel
      {
           public void OnGet()
           {
