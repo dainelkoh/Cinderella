@@ -53,8 +53,29 @@ namespace Cinderella.Pages.Shoes
                  }
             }
 
-            Review = await _context.ReviewFinals.FirstOrDefaultAsync(m => m.ShoeID == id);
-            if (Review == null)
+            try
+            {
+                Review = await _context.ReviewFinals.FirstOrDefaultAsync(m => m.ShoeID == id);
+                if (Review == null)
+                {
+                    ReviewFinal NullReview = new ReviewFinal
+                    {
+                        ReviewID = 0,
+                        ShoeID = (int)id,
+                        ReviewName = "No Reviews",
+                        ReviewWords = "No Reviews"
+                    };
+                    Reviews = new List<ReviewFinal> { NullReview };
+                }
+                else
+                {
+                    var reviewQuery = from s in _context.ReviewFinals
+                                      where s.ShoeID == Shoe.ShoeID
+                                      select s;
+                    Reviews = await reviewQuery.ToListAsync();
+                }
+            }
+            catch
             {
                 ReviewFinal NullReview = new ReviewFinal
                 {
@@ -64,12 +85,6 @@ namespace Cinderella.Pages.Shoes
                     ReviewWords = "No Reviews"
                 };
                 Reviews = new List<ReviewFinal> { NullReview };
-            }
-            else
-            {
-                var reviewQuery = from s in _context.ReviewFinals where s.ShoeID == Shoe.ShoeID
-                                  select s;
-                Reviews = await reviewQuery.ToListAsync();
             }
 
             //if (User.IsInRole("Staff"))
