@@ -98,12 +98,16 @@ namespace Cinderella.Areas.Identity.Pages.Account
                         }
                     }
                 }
-
+                string id = user.Id;
+                bool tfe = user.TwoFactorEnabled;
+                var lend = user.LockoutEnd;
+                bool lenabled = user.LockoutEnabled;
+                int afc = user.AccessFailedCount;
                 var test = await _userManager.DeleteAsync(user);
 
                 if (test.Succeeded)
                 {
-                    var new_user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                    var new_user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, Id = id, TwoFactorEnabled = tfe, LockoutEnd = lend, LockoutEnabled = lenabled, AccessFailedCount = afc };
                     var result = await _userManager.CreateAsync(new_user, s);
 
                     if (result.Succeeded)
