@@ -86,7 +86,7 @@ namespace Cinderella.Pages.Payment
 
                     var user = await _userManager.GetUserAsync(User);
                     Bought QueryBought = new Bought { Id = user.Id, ShoeID = shoe.ShoeID };
-                    var bought = await _context.bought.FirstOrDefaultAsync(m => m == QueryBought);
+                    var bought = await _context.bought.FirstOrDefaultAsync(m => m.Id == QueryBought.Id && m.ShoeID == QueryBought.ShoeID);
 
                     if (bought == null)
                     {

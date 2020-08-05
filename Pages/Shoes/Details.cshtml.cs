@@ -42,18 +42,14 @@ namespace Cinderella.Pages.Shoes
             if (user != null)
             {
                  Bought QueryBought = new Bought { Id = user.Id, ShoeID = Shoe.ShoeID };
-                 Bought bought = await _context.bought.FirstOrDefaultAsync(m => m.Id == QueryBought.Id);
+                 Bought bought = await _context.bought.FirstOrDefaultAsync(m => m.Id == QueryBought.Id && m.ShoeID == QueryBought.ShoeID);
                  if (bought == null)
                  {
                      Reviewable = false;
                  }
-                 else if (bought.ShoeID == QueryBought.ShoeID)
-                 {
-                     Reviewable = true;
-                 }
                  else
                  {
-                     Reviewable = false;
+                     Reviewable = true;
                  }
             }
 
