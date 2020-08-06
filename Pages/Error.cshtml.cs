@@ -29,7 +29,7 @@ namespace Cinderella.Pages
 
                iStatusCode = HttpContext.Response.StatusCode;
                Message = exception.Error.Message;
-               StackTrace = exception.Error.StackTrace;
+               //StackTrace = exception.Error.StackTrace;
           }
      }
 }

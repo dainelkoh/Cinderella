@@ -77,8 +77,14 @@ namespace Cinderella
                     // options.LogoutPath = "/Account/Logout";
                     // options.AccessDeniedPath = "/Account/AccessDenied";
 
+                   //when set to true, it does not allow cookies to be read with clident side script like java. mitigate XSS-attempts to read cookies n send back to attacker
                     options.Cookie.HttpOnly = true;
+
+                   // how long the issued cookie is valid for
                     options.ExpireTimeSpan = TimeSpan.FromSeconds(500);
+
+                   //false= user have to sign back once time is up.
+                   //true= cookie re-issued on any request halfway thru ExpiresTimeSpan
                     options.SlidingExpiration = true;
                });
                services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
@@ -95,7 +101,10 @@ namespace Cinderella
             //}
             //else
             //{
+
+            //use HTML markup to render status code. {0} outputs the status code at specific place within markup
             app.UseStatusCodePages("text/html", "<h1>Status code page</h1> <h2>Status Code: {0}</h2>");
+            //specified error handler, show friendly msg to end user. redirect to Error.cshtml.cs when any unhandled exception control happen
                app.UseExceptionHandler("/Error");
             //}
 
