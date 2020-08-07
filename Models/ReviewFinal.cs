@@ -15,12 +15,12 @@ namespace Cinderella.Models
         [ForeignKey("Shoe")]
         public int ShoeID { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "This is a required field")]
         [StringLength(32, MinimumLength = 1)]
         public string ReviewName { get; set; }
 
-        [Required]
-        [StringLength(256, MinimumLength = 10, ErrorMessage ="The review is limited to 10 and 256 letters.")]
+        [Required(ErrorMessage = "This is a required field")]
+        [StringLength(256, MinimumLength = 3, ErrorMessage ="The review is limited to 3 and 256 letters.")]
         public string ReviewWords { get; set; }
     }
 }
