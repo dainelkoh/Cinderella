@@ -143,7 +143,7 @@ Project Link: [https://github.com/dainelkoh/Cinderella](https://github.com/daine
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 
-* Mr Saiful - For his advice in making this project a successful one
+* Mr Saiful - For his teaching and advice in making this project a successful one
 
 
 
