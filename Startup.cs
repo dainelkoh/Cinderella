@@ -83,6 +83,12 @@ namespace Cinderella
                });
                services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
                services.Configure<RecaptchaSettings>(Configuration.GetSection("reCAPTCHA"));
+                //Zuriel update (start)
+                services.Configure<MvcOptions>(options =>
+                {
+                    options.Filters.Add(new RequireHttpsAttribute { Permanent = true });
+                });
+                //Zuriel update (end)
           }
 
           // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -104,8 +110,25 @@ namespace Cinderella
                app.UseStaticFiles();
                app.UseAuthentication();
                app.UseCookiePolicy();
+            //Zuriel update (start)
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
+                await next();
+            });
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("X-Xss-Protection", "1");
+                await next();
+            });
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+                await next();
+            });
+            //Zuriel update (end)
 
-               app.UseMvc();
+            app.UseMvc();
           }
      }
 }
