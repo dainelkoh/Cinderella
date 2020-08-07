@@ -121,7 +121,7 @@ Open up Cinderella.sln and start the project without debugging
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the Cinderella Shoe Copyright Agreement. See `License` & `Cinderella Shoe Licensing Agreement` for more information.
 
 
 
