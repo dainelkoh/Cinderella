@@ -114,7 +114,7 @@ Distributed under the Cinderella Shoe Copyright Agreement. See `License` & `Cind
 <!-- CONTACT -->
 ## Contact
 
-Dainel Koh Chye Leh - [@LinkedIn](https://www.linkedin.com/in/dainel-koh-6b6193186/) 
+Dainel Koh Chye Lek - [@LinkedIn](https://www.linkedin.com/in/dainel-koh-6b6193186/) 
 
 Zuriel Shanley Tanyory - [@LinkedIn](https://www.linkedin.com/in/zuriel-shanley/)
 
