@@ -95,7 +95,7 @@ git clone https://github.com/dainelkoh/Cinderella.git
 ```
 2. Copy Database
 ```sh
-Copy CinderellaContext.mdf and CinderellaContext_log.ldf to C://User//Your-User-Account
+Copy CinderellaContext.mdf and CinderellaContext_log.ldf to C:/User/Your-User-Account
 ```
 3. Running the web application
 ```sh
