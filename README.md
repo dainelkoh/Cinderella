@@ -99,7 +99,7 @@ Copy CinderellaContext.mdf and CinderellaContext_log.ldf to C:/User/Your-User-Ac
 ```
 3. Running the web application
 ```sh
-Open up Cinderella.sln and start the project without debugging
+Open up Cinderella.sln and start the project without debugging using ISS Express
 ```
 
 
