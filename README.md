@@ -34,9 +34,9 @@
     <br />
     <a href="https://github.com/dainelkoh/Cinderella">View Demo</a>
     ·
-    <a href="mailto: dainelkohcl@gmail.com">Report Bug</a>
+    <a href="mailto: zuriel.shanley@gmail.com">Report Bug</a>
     ·
-    <a href="mailto: dainelkohcl@gmail.com">Request Feature</a>
+    <a href="mailto: zuriel.shanley@gmail.com">Request Feature</a>
   </p>
 </p>
 
@@ -118,9 +118,9 @@ Dainel Koh Chye Leh - [@LinkedIn](https://www.linkedin.com/in/dainel-koh-6b61931
 
 Zuriel Shanley Tanyory - [@LinkedIn](https://www.linkedin.com/in/zuriel-shanley/)
 
-Nerissa Ng - [@LinkedIn](https://www.linkedin.com/in/nerissa-ng-0b6211186/)
+Ng Shu Hyan - [@LinkedIn](https://www.linkedin.com/in/nerissa-ng-0b6211186/)
 
-Wai Keet Ng - [@LinkedIn](https://www.linkedin.com/in/wai-keet-ng-74a50a186/)
+Ng Wai Keet - [@LinkedIn](https://www.linkedin.com/in/wai-keet-ng-74a50a186/)
 
 Project Link: [https://github.com/dainelkoh/Cinderella](https://github.com/dainelkoh/Cinderella)
 
