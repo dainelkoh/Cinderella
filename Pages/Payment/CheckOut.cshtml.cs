@@ -93,10 +93,10 @@ namespace Cinderella.Pages.Payment
                         _context.bought.Add(QueryBought);
                         await _context.SaveChangesAsync();
                     }
-
+                    string receipturl = charge.ReceiptUrl;
                     string subject = "Cinderella Order Confirmation";
                     string To = charge.ReceiptEmail;
-                    string Body = string.Format("Thanks for shopping with Cinderella \nTransaction No. :{0}\nAmount paid: ${1}\nYour order for {2} will be shipped to you shortly",charge.Id, charge.Amount/100, shoe.Name);
+                    string Body = string.Format("Thanks for shopping with Cinderella \nTransaction No. :{0}\nAmount paid: ${1}\nYour order for {2} will be shipped to you shortly. Alternatively, you may view your e-receipt at {3}.",charge.Id, charge.Amount/100, shoe.Name,receipturl);
                     MailMessage mail = new MailMessage();
                     mail.To.Add(To);
                     mail.Subject = subject;
